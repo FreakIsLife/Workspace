@@ -1,22 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
-
-<title>个人中心</title>
-
-<link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet"
-	type="text/css">
-<link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet"
-	type="text/css">
-<link href="../css/personal.css" rel="stylesheet" type="text/css">
-<link href="../css/vipstyle.css" rel="stylesheet" type="text/css">
-<script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 <style type="text/css">
 .message-r li {
 	float: left;
@@ -45,7 +33,7 @@
 						<li>
 							<div class="topMessage home">
 								<div class="menu-hd">
-									<a href="../home.html" target="_top" class="h">商城首页</a>
+									<a href="#" target="_top" class="h">商城首页</a>
 								</div>
 							</div>
 						</li>
@@ -83,12 +71,14 @@
 					<div class="logoBig">
 						<ul>
 							<li>
-								<img src="../images/logobig.png" />
+								<img
+									src="${pageContext.request.contextPath }/images/logobig.png" />
 							</li>
 						</ul>
 					</div>
 
 					<div class="search-bar pr">
+
 						<form>
 							<input id="searchInput" name="index_none_header_sysc" type="text"
 								placeholder="搜索" autocomplete="off">
@@ -102,20 +92,20 @@
 			</div>
 		</article>
 	</header>
-	<div class="nav-table">
-		<div class="long-title">
-			<span class="all-goods">全部分类</span>
+	<jsp:include page="${showPage==null?'/user/information.jsp':showPage }"></jsp:include>
+	<!--底部-->
+	<div class="footer">
+		<div class="footer-hd">
+			<p>
+				<a href="${pageContext.request.contextPath }/home.html">商城首页</a>
+			</p>
 		</div>
-		<div class="nav-cont">
-			<ul>
-				<li class="index">
-					<a href="../home.html">首页</a>
-				</li>
-			</ul>
+		<div class="footer-bd">
+			<p>
+				<em>© 2015-2025 Hengwang.com 版权所有. Collect from <a
+					href="http://www.baidu.com/" target="_blank">百度一下，你就知道</a></em>
+			</p>
 		</div>
 	</div>
-	<b class="line"></b>
-	<jsp:include page="/${showPage==null?'user/index.jsp':showPage }"></jsp:include>
 </body>
-
 </html>

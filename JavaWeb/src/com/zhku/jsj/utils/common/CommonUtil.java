@@ -25,7 +25,8 @@ public class CommonUtil {
 	 * 
 	 * 把Map转换成指定类型
 	 */
-	public static <T> T toBean(Map<String, Object> map, Class<T> clazz) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> T toBean(Map map, Class<T> clazz) {
 		try {
 			/*
 			 * 1. 通过参数clazz创建实例 

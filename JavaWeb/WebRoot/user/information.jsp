@@ -1,8 +1,24 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<title>个人资料</title>
+
+<link
+	href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/admin.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/amazeui.css"
+	rel="stylesheet" type="text/css">
+
+<link href="${pageContext.request.contextPath }/css/personal.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/css/infstyle.css"
+	rel="stylesheet" type="text/css">
+<script
+	src="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 <div class="center">
 	<div class="col-main">
 		<div class="main-wrap">
-
 			<div class="user-info">
 				<!--标题 -->
 				<div class="am-cf am-padding">
@@ -19,7 +35,8 @@
 						<input type="file" class="inputPic"
 							allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
 						<img class="am-circle am-img-thumbnail"
-							src="../images/getAvatar.do.jpg" alt="" />
+							src="${pageContext.request.contextPath }/images/getAvatar.do.jpg"
+							alt="" />
 					</div>
 
 					<p class="am-form-help">头像</p>
@@ -36,13 +53,14 @@
 
 				<!--个人信息 -->
 				<div class="info-main">
-					<form class="am-form am-form-horizontal">
+					<form action="#" method="post" class="am-form am-form-horizontal"
+						id="doc-vld-msg">
 
 						<div class="am-form-group">
-							<label for="user-name2" class="am-form-label">昵称</label>
+							<label for="user-name" class="am-form-label">昵称</label>
 							<div class="am-form-content">
-								<input type="text" id="user-name2" placeholder="nickname">
-								<small>昵称长度不能超过40个汉字</small>
+								<input type="text" id="user-name" minlength="3" maxlength="12"
+									placeholder="nickname" required>
 							</div>
 						</div>
 
@@ -70,26 +88,15 @@
 						<div class="am-form-group">
 							<label for="user-birth" class="am-form-label">生日</label>
 							<div class="am-form-content birth">
-								<div class="birth-select">
-									<select data-am-selected>
-										<option value="a">2015</option>
-										<option value="b">1987</option>
-									</select>
-									<em>年</em>
-								</div>
-								<div class="birth-select2">
-									<select data-am-selected>
-										<option value="a">12</option>
-										<option value="b">8</option>
-									</select>
-									<em>月</em>
-								</div>
-								<div class="birth-select2">
-									<select data-am-selected>
-										<option value="a">21</option>
-										<option value="b">23</option>
-									</select>
-									<em>日</em>
+								<div class="am-input-group am-datepicker-date"
+									data-am-datepicker="{format: 'yyyy-mm-dd'}">
+									<input type="text" class="am-form-field" placeholder="日历组件"
+										readonly>
+									<span class="am-input-group-btn am-datepicker-add-on">
+										<button class="am-btn am-btn-default" type="button">
+											<span class="am-icon-calendar"></span>
+										</button>
+									</span>
 								</div>
 							</div>
 
@@ -104,157 +111,58 @@
 						<div class="am-form-group">
 							<label for="user-email" class="am-form-label">电子邮件</label>
 							<div class="am-form-content">
-								<input id="user-email" placeholder="Email" type="email">
-
-							</div>
-						</div>
-						<div class="am-form-group address">
-							<label for="user-address" class="am-form-label">收货地址</label>
-							<div class="am-form-content address">
-								<a href="address.html">
-									<p class="new-mu_l2cw">
-										<span class="province">湖北</span>省 <span class="city">武汉</span>市
-										<span class="dist">洪山</span>区 <span class="street">雄楚大道666号(中南财经政法大学)</span>
-										<span class="am-icon-angle-right"></span>
-									</p>
-								</a>
-
-							</div>
-						</div>
-						<div class="am-form-group safety">
-							<label for="user-safety" class="am-form-label">账号安全</label>
-							<div class="am-form-content safety">
-								<a href="safety.html"> <span class="am-icon-angle-right"></span>
-
-								</a>
+								<input id="user-email" placeholder="Email" type="email"
+									data-validation-message="邮箱格式不正确">
 
 							</div>
 						</div>
 						<div class="info-btn">
 							<div class="am-btn am-btn-danger">保存修改</div>
 						</div>
-
 					</form>
+					<script>
+						$(function() {
+							$('.info-btn div').on('click',function(){
+								$('#doc-vld-msg').submit();
+							});
+							$('#doc-vld-msg')
+									.validator(
+											{
+												onValid : function(validity) {
+													$(validity.field).closest(
+															'.am-form-group')
+															.find('.am-alert')
+															.hide();
+												},
+
+												onInValid : function(validity) {
+													var $field = $(validity.field);
+													var $group = $field
+															.closest('.am-form-group');
+													var $alert = $group
+															.find('.am-alert');
+													// 使用自定义的提示信息 或 插件内置的提示信息
+													var msg = $field
+															.data('validationMessage')
+															|| this
+																	.getValidationMessage(validity);
+
+													if (!$alert.length) {
+														$alert = $(
+																'<div class="am-alert am-alert-danger" style="font-size:10px;text-align:center;"></div>')
+																.hide()
+																.appendTo(
+																		$group);
+													}
+
+													$alert.html(msg).show();
+												}
+											});
+						});
+					</script>
 				</div>
-
-			</div>
-
-		</div>
-		<!--底部-->
-		<div class="footer">
-			<div class="footer-hd">
-				<p>
-					<a href="#">恒望科技</a> <b>|</b> <a href="#">商城首页</a> <b>|</b> <a
-						href="#">支付宝</a> <b>|</b> <a href="#">物流</a>
-				</p>
-			</div>
-			<div class="footer-bd">
-				<p>
-					<a href="#">关于恒望</a> <a href="#">合作伙伴</a> <a href="#">联系我们</a> <a
-						href="#">网站地图</a> <em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a
-						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-						- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-						target="_blank">网页模板</a></em>
-				</p>
 			</div>
 		</div>
 	</div>
-
-	<aside class="menu">
-		<ul>
-			<li class="person active">
-				<a href="index.html"><i class="am-icon-user"></i>个人中心</a>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-newspaper-o"></i>个人资料
-				</p>
-				<ul>
-					<li>
-						<a href="information.html">个人信息</a>
-					</li>
-					<li>
-						<a href="safety.html">安全设置</a>
-					</li>
-					<li>
-						<a href="address.html">地址管理</a>
-					</li>
-					<li>
-						<a href="cardlist.html">快捷支付</a>
-					</li>
-				</ul>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-balance-scale"></i>我的交易
-				</p>
-				<ul>
-					<li>
-						<a href="order.html">订单管理</a>
-					</li>
-					<li>
-						<a href="change.html">退款售后</a>
-					</li>
-					<li>
-						<a href="comment.html">评价商品</a>
-					</li>
-				</ul>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-dollar"></i>我的资产
-				</p>
-				<ul>
-					<li>
-						<a href="points.html">我的积分</a>
-					</li>
-					<li>
-						<a href="coupon.html">优惠券 </a>
-					</li>
-					<li>
-						<a href="bonus.html">红包</a>
-					</li>
-					<li>
-						<a href="walletlist.html">账户余额</a>
-					</li>
-					<li>
-						<a href="bill.html">账单明细</a>
-					</li>
-				</ul>
-			</li>
-
-			<li class="person">
-				<p>
-					<i class="am-icon-tags"></i>我的收藏
-				</p>
-				<ul>
-					<li>
-						<a href="collection.html">收藏</a>
-					</li>
-					<li>
-						<a href="foot.html">足迹</a>
-					</li>
-				</ul>
-			</li>
-
-			<li class="person">
-				<p>
-					<i class="am-icon-qq"></i>在线客服
-				</p>
-				<ul>
-					<li>
-						<a href="consultation.html">商品咨询</a>
-					</li>
-					<li>
-						<a href="suggest.html">意见反馈</a>
-					</li>
-
-					<li>
-						<a href="news.html">我的消息</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-
-	</aside>
+	<jsp:include page="aside.jsp"></jsp:include>
 </div>

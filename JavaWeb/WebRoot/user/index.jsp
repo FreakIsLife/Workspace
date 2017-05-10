@@ -1,4 +1,32 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<title>个人中心</title>
+<link
+	href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/admin.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/amazeui.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/css/personal.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/css/vipstyle.css"
+	rel="stylesheet" type="text/css">
+<script
+	src="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+<div class="nav-table">
+	<div class="long-title">
+		<span class="all-goods">全部分类</span>
+	</div>
+	<div class="nav-cont">
+		<ul>
+			<li class="index">
+				<a href="${pageContext.request.contextPath }/main.jsp">首页</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<b class="line"></b>
 <div class="center">
 	<div class="col-main">
 		<div class="main-wrap">
@@ -13,7 +41,7 @@
 							</div>
 							<div class="m-baseinfo">
 								<a class="m-pic" href="information.html"> <img
-									src="../images/getAvatar.do.jpg">
+									src="${pageContext.request.contextPath }/images/getAvatar.do.jpg">
 								</a>
 								<div class="m-info">
 									<em class="s-name">小叮当</em>
@@ -70,18 +98,21 @@
 								<i class="s-icon"></i>商城钱包
 							</div>
 							<p class="m-big squareS">
-								<a href="#"> <i><img src="../images/shopping.png" /></i> <span
-									class="m-title">能购物</span>
+								<a href="#"> <i><img
+										src="${pageContext.request.contextPath }/images/shopping.png" /></i>
+									<span class="m-title">能购物</span>
 								</a>
 							</p>
 							<p class="m-big squareA">
-								<a href="#"> <i><img src="../images/safe.png" /></i> <span
-									class="m-title">够安全</span>
+								<a href="#"> <i><img
+										src="${pageContext.request.contextPath }/images/safe.png" /></i>
+									<span class="m-title">够安全</span>
 								</a>
 							</p>
 							<p class="m-big squareL">
-								<a href="#"> <i><img src="../images/profit.png" /></i> <span
-									class="m-title">很灵活</span>
+								<a href="#"> <i><img
+										src="${pageContext.request.contextPath }/images/profit.png" /></i>
+									<span class="m-title">很灵活</span>
 								</a>
 							</p>
 						</div>
@@ -97,28 +128,34 @@
 						</div>
 						<ul>
 							<li>
-								<a href="order.html"><i><img src="../images/pay.png" /></i><span>待付款</span></a>
+								<a href="order.html"><i><img
+										src="${pageContext.request.contextPath }/images/pay.png" /></i><span>待付款</span></a>
 							</li>
 							<li>
-								<a href="order.html"><i><img src="../images/send.png" /></i><span>待发货<em
+								<a href="order.html"><i><img
+										src="${pageContext.request.contextPath }/images/send.png" /></i><span>待发货<em
 										class="m-num">1</em></span></a>
 							</li>
 							<li>
-								<a href="order.html"><i><img src="../images/receive.png" /></i><span>待收货</span></a>
+								<a href="order.html"><i><img
+										src="${pageContext.request.contextPath }/images/receive.png" /></i><span>待收货</span></a>
 							</li>
 							<li>
-								<a href="order.html"><i><img src="../images/comment.png" /></i><span>待评价<em
+								<a href="order.html"><i><img
+										src="${pageContext.request.contextPath }/images/comment.png" /></i><span>待评价<em
 										class="m-num">3</em></span></a>
 							</li>
 							<li>
-								<a href="change.html"><i><img src="../images/refund.png" /></i><span>退换货</span></a>
+								<a href="change.html"><i><img
+										src="${pageContext.request.contextPath }/images/refund.png" /></i><span>退换货</span></a>
 							</li>
 						</ul>
 						<div class="orderContentBox">
 							<div class="orderContent">
 								<div class="orderContentpic">
 									<div class="imgBox">
-										<a href="orderinfo.html"><img src="../images/youzi.jpg"></a>
+										<a href="orderinfo.html"><img
+											src="${pageContext.request.contextPath }/images/youzi.jpg"></a>
 									</div>
 								</div>
 								<div class="detailContent">
@@ -144,7 +181,8 @@
 							<div class="orderContent">
 								<div class="orderContentpic">
 									<div class="imgBox">
-										<a href="orderinfo.html"><img src="../images/heart.jpg"></a>
+										<a href="orderinfo.html"><img
+											src="${pageContext.request.contextPath }/images/heart.jpg"></a>
 									</div>
 								</div>
 								<div class="detailContent">
@@ -196,35 +234,43 @@
 							data-am-flexslider="{itemWidth:155,slideshow: false}">
 							<ul class="am-slides">
 								<li>
-									<a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 
@@ -236,35 +282,43 @@
 							data-am-flexslider="{itemWidth:155, slideshow: false}">
 							<ul class="am-slides">
 								<li>
-									<a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/BxJk6.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/Hxcag60.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/youzi.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 								<li>
-									<a><img class="am-thumbnail" src="../images/EZA27501.jpg" /></a>
+									<a><img class="am-thumbnail"
+										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
 									<strong class="price">¥32.9</strong>
 								</li>
 							</ul>
@@ -274,20 +328,6 @@
 			</div>
 
 
-		</div>
-		<!--底部-->
-		<div class="footer">
-			<div class="footer-hd">
-				<p>
-					<a href="../home.html">商城首页</a>
-				</p>
-			</div>
-			<div class="footer-bd">
-				<p>
-					<em>© 2015-2025 Hengwang.com 版权所有. Collect from <a
-						href="http://www.baidu.com/" target="_blank">百度一下，你就知道</a></em>
-				</p>
-			</div>
 		</div>
 
 	</div>

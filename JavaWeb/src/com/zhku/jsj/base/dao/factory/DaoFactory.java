@@ -27,7 +27,6 @@ public class DaoFactory {
 		try {
 			return (T) Class.forName(className).newInstance();
 		} catch (Exception e) {
-
 			return null;
 		}
 
