@@ -1,9 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<script>
+	$(".person li").click(function(){
+		this.addClass('active')
+});
+</script>
 <aside class="menu">
 	<ul>
 		<li class="person active">
-			<a href="index.html"><i class="am-icon-user"></i>个人中心</a>
+			<a href="${pageContext.request.contextPath }/user/main.jsp"><i class="am-icon-user"></i>个人中心</a>
 		</li>
 		<li class="person">
 			<p>
@@ -11,16 +15,13 @@
 			</p>
 			<ul>
 				<li>
-					<a href="information.html">个人信息</a>
+					<a href="${pageContext.request.contextPath }/user/information.jsp">个人信息</a>
 				</li>
 				<li>
 					<a href="safety.html">安全设置</a>
 				</li>
 				<li>
 					<a href="address.html">地址管理</a>
-				</li>
-				<li>
-					<a href="cardlist.html">快捷支付</a>
 				</li>
 			</ul>
 		</li>
@@ -32,12 +33,6 @@
 				<li>
 					<a href="order.html">订单管理</a>
 				</li>
-				<li>
-					<a href="change.html">退款售后</a>
-				</li>
-				<li>
-					<a href="comment.html">评价商品</a>
-				</li>
 			</ul>
 		</li>
 		<li class="person">
@@ -45,15 +40,6 @@
 				<i class="am-icon-dollar"></i>我的资产
 			</p>
 			<ul>
-				<li>
-					<a href="points.html">我的积分</a>
-				</li>
-				<li>
-					<a href="coupon.html">优惠券 </a>
-				</li>
-				<li>
-					<a href="bonus.html">红包</a>
-				</li>
 				<li>
 					<a href="walletlist.html">账户余额</a>
 				</li>
@@ -70,9 +56,6 @@
 			<ul>
 				<li>
 					<a href="collection.html">收藏</a>
-				</li>
-				<li>
-					<a href="foot.html">足迹</a>
 				</li>
 			</ul>
 		</li>

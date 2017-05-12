@@ -12,22 +12,28 @@
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<link rel="stylesheet" href="AmazeUI-2.4.2/assets/css/amazeui.css" />
-<link href="css/dlstyle.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/amazeui.css" />
+<link href="${pageContext.request.contextPath }/css/dlstyle.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	.errorText{
+		color:red;
+		font-size: small;
+	}
+</style>
 </head>
 
 <body>
 
 	<div class="login-boxtitle">
-		<a href="home.html">
-			<img alt="logo" src="images/logobig.png" />
+		<a href="${pageContext.request.contextPath }/home.jsp">
+			<img alt="logo" src="${pageContext.request.contextPath }/images/logobig.png" />
 		</a>
 	</div>
 
 	<div class="login-banner">
 		<div class="login-main">
 			<div class="login-banner-bg">
-				<span></span><img src="images/big.jpg" />
+				<span></span><img src="${pageContext.request.contextPath }/images/big.jpg" />
 			</div>
 			<div class="login-box">
 
@@ -36,7 +42,7 @@
 				<div class="clear"></div>
 
 				<div class="login-form">
-					<form action="user?method=login" method="post" id="myForm">
+					<form action="${pageContext.request.contextPath }/user?method=login" method="post" id="myForm">
 						<div class="user-name">
 							<label for="user">
 								<i class="am-icon-user"></i>
@@ -57,13 +63,14 @@
 						<input id="remember-me" type="checkbox">记住密码
 					</label>
 					<a href="#" class="am-fr">忘记密码</a>
-					<a href="register.html" class="zcnext am-fr am-btn-default">注册</a>
+					<a href="${pageContext.request.contextPath }/page/regist.jsp" class="zcnext am-fr am-btn-default">注册</a>
 					<br />
 				</div>
 				<div class="am-cf">
 					<input type="button" name="" value="登 录"
 						class="am-btn am-btn-primary am-btn-sm" onclick="myForm.submit()">
 				</div>
+				<label class="errorText">${msg }</label>
 
 			</div>
 		</div>

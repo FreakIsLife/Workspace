@@ -21,18 +21,17 @@ public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService us = new UserService();
 
-	@SuppressWarnings("unused")
 	public String login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		User bean = CommonUtil.toBean(request.getParameterMap(), User.class);
-		User loginUser = us.login(bean);		
-		System.out.println(loginUser.getUserNickname());
+		User loginUser = us.login(bean);
 		if (loginUser == null) {
+			request.setAttribute("backUser", bean);
 			request.setAttribute("msg", "用户名或密码错误！");
-			return "f:/login.jsp";
+			return "f:/page/login.jsp";
 		} else {
 			request.getSession().setAttribute("loginUser", loginUser);
-			return "f:/home.html";
+			return "r:/home.jsp";
 		}
 
 	}

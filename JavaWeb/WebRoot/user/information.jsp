@@ -43,10 +43,11 @@
 
 					<div class="info-m">
 						<div>
-							<b>用户名：<i>小叮当</i></b>
+							<b>用户名：<i>${loginUser.userId }</i></b>
 						</div>
 						<div class="vip">
-							<span></span><a href="#">会员专享</a>
+							<span></span>
+							<a href="#">会员专享</a>
 						</div>
 					</div>
 				</div>
@@ -60,14 +61,16 @@
 							<label for="user-name" class="am-form-label">昵称</label>
 							<div class="am-form-content">
 								<input type="text" id="user-name" minlength="3" maxlength="12"
+									name="userNickname" value="${loginUser.userNickname }"
 									placeholder="nickname" required>
 							</div>
 						</div>
 
 						<div class="am-form-group">
-							<label for="user-name" class="am-form-label">姓名</label>
+							<label for="user-name2" class="am-form-label">姓名</label>
 							<div class="am-form-content">
-								<input type="text" id="user-name2" placeholder="name">
+								<input type="text" id="user-name2" name="userName"
+									value="${loginUser.userName }" placeholder="name">
 
 							</div>
 						</div>
@@ -75,12 +78,19 @@
 						<div class="am-form-group">
 							<label class="am-form-label">性别</label>
 							<div class="am-form-content sex">
-								<label class="am-radio-inline"> <input type="radio"
-										name="radio10" value="male" data-am-ucheck> 男
-								</label> <label class="am-radio-inline"> <input type="radio"
-										name="radio10" value="female" data-am-ucheck> 女
-								</label> <label class="am-radio-inline"> <input type="radio"
-										name="radio10" value="secret" data-am-ucheck> 保密
+								<label class="am-radio-inline">
+									<input type="radio" name="userSex" value="male" checked data-am-ucheck>
+									男
+								</label>
+								<label class="am-radio-inline">
+									<input type="radio" name="userSex" value="female"
+										data-am-ucheck>
+									女
+								</label>
+								<label class="am-radio-inline">
+									<input type="radio" name="userSex" value="secret"
+										data-am-ucheck>
+									保密
 								</label>
 							</div>
 						</div>
@@ -122,7 +132,7 @@
 					</form>
 					<script>
 						$(function() {
-							$('.info-btn div').on('click',function(){
+							$('.info-btn div').on('click', function() {
 								$('#doc-vld-msg').submit();
 							});
 							$('#doc-vld-msg')

@@ -20,9 +20,8 @@
 	</div>
 	<div class="nav-cont">
 		<ul>
-			<li class="index">
-				<a href="${pageContext.request.contextPath }/main.jsp">首页</a>
-			</li>
+			<li class="index"><a
+					href="${pageContext.request.contextPath }/main.jsp">首页</a></li>
 		</ul>
 	</div>
 </div>
@@ -37,34 +36,43 @@
 
 						<div class="m-userinfo">
 							<div class="tipsBox">
-								<a href="news.html"><i class="am-icon-envelope"></i> </a>
+								<a href="news.html">
+									<i class="am-icon-envelope"></i>
+								</a>
 							</div>
 							<div class="m-baseinfo">
-								<a class="m-pic" href="information.html"> <img
-									src="${pageContext.request.contextPath }/images/getAvatar.do.jpg">
+								<a class="m-pic" href="information.html">
+									<img
+										src="${pageContext.request.contextPath }/images/getAvatar.do.jpg">
 								</a>
 								<div class="m-info">
-									<em class="s-name">小叮当</em>
+									<em class="s-name">${loginUser.userId }</em>
 									<div class="vip1">
-										<a href="#"><span></span><em>会员专享</em></a>
+										<a href="#">
+											<span></span><em>会员专享</em>
+										</a>
 									</div>
 									<div class="safeText">
-										<a href="safety.html">账户安全:<em style="margin-left:20px ;">60</em>分
+										<a href="safety.html">
+											账户安全:<em style="margin-left:20px ;">60</em>分
 										</a>
 										<div class="progressBar">
 											<span style="left: -95px;" class="progress"></span>
 										</div>
 									</div>
 									<div class="m-address">
-										<a href="address.html" class="i-trigger">收货地址<i
-											class="am-icon-angle-right" style="padding-left:5px ;"></i></a>
+										<a href="address.html" class="i-trigger">
+											收货地址<i class="am-icon-angle-right" style="padding-left:5px ;"></i>
+										</a>
 									</div>
 								</div>
 							</div>
 							<div class="m-right">
 								<div class="m-new">
-									<a href="news.html"><i class="am-icon-dropbox  am-icon-md"
-										style="padding-right:5px ;"></i>消息盒子</a>
+									<a href="news.html">
+										<i class="am-icon-dropbox  am-icon-md"
+											style="padding-right:5px ;"></i>消息盒子
+									</a>
 								</div>
 
 							</div>
@@ -76,18 +84,18 @@
 								<i class="s-icon"></i>个人资产
 							</div>
 							<p class="m-coupon">
-								<a href="coupon.html"> <em class="m-num">2</em> <span
-									class="m-title">优惠券</span>
+								<a href="coupon.html">
+									<em class="m-num">2</em> <span class="m-title">优惠券</span>
 								</a>
 							</p>
 							<p class="m-wallet">
-								<a href="wallet.html"> <em class="m-num">0.00</em> <span
-									class="m-title">账户余额</span>
+								<a href="wallet.html">
+									<em class="m-num">0.00</em> <span class="m-title">账户余额</span>
 								</a>
 							</p>
 							<p class="m-bill">
-								<a href="pointnew.html"> <em class="m-num">10</em> <span
-									class="m-title">总积分</span>
+								<a href="pointnew.html">
+									<em class="m-num">10</em> <span class="m-title">总积分</span>
 								</a>
 							</p>
 						</div>
@@ -98,19 +106,22 @@
 								<i class="s-icon"></i>商城钱包
 							</div>
 							<p class="m-big squareS">
-								<a href="#"> <i><img
+								<a href="#">
+									<i><img
 										src="${pageContext.request.contextPath }/images/shopping.png" /></i>
 									<span class="m-title">能购物</span>
 								</a>
 							</p>
 							<p class="m-big squareA">
-								<a href="#"> <i><img
+								<a href="#">
+									<i><img
 										src="${pageContext.request.contextPath }/images/safe.png" /></i>
 									<span class="m-title">够安全</span>
 								</a>
 							</p>
 							<p class="m-big squareL">
-								<a href="#"> <i><img
+								<a href="#">
+									<i><img
 										src="${pageContext.request.contextPath }/images/profit.png" /></i>
 									<span class="m-title">很灵活</span>
 								</a>
@@ -123,39 +134,41 @@
 					<!--订单 -->
 					<div class="m-order">
 						<div class="s-bar">
-							<i class="s-icon"></i>我的订单 <a class="i-load-more-item-shadow"
-								href="order.html">全部订单</a>
+							<i class="s-icon"></i>我的订单
+							<a class="i-load-more-item-shadow" href="order.html">全部订单</a>
 						</div>
 						<ul>
-							<li>
-								<a href="order.html"><i><img
-										src="${pageContext.request.contextPath }/images/pay.png" /></i><span>待付款</span></a>
-							</li>
-							<li>
-								<a href="order.html"><i><img
+							<li><a href="order.html">
+									<i><img
+										src="${pageContext.request.contextPath }/images/pay.png" /></i><span>待付款</span>
+								</a></li>
+							<li><a href="order.html">
+									<i><img
 										src="${pageContext.request.contextPath }/images/send.png" /></i><span>待发货<em
-										class="m-num">1</em></span></a>
-							</li>
-							<li>
-								<a href="order.html"><i><img
-										src="${pageContext.request.contextPath }/images/receive.png" /></i><span>待收货</span></a>
-							</li>
-							<li>
-								<a href="order.html"><i><img
+										class="m-num">1</em></span>
+								</a></li>
+							<li><a href="order.html">
+									<i><img
+										src="${pageContext.request.contextPath }/images/receive.png" /></i><span>待收货</span>
+								</a></li>
+							<li><a href="order.html">
+									<i><img
 										src="${pageContext.request.contextPath }/images/comment.png" /></i><span>待评价<em
-										class="m-num">3</em></span></a>
-							</li>
-							<li>
-								<a href="change.html"><i><img
-										src="${pageContext.request.contextPath }/images/refund.png" /></i><span>退换货</span></a>
-							</li>
+										class="m-num">3</em></span>
+								</a></li>
+							<li><a href="change.html">
+									<i><img
+										src="${pageContext.request.contextPath }/images/refund.png" /></i><span>退换货</span>
+								</a></li>
 						</ul>
 						<div class="orderContentBox">
 							<div class="orderContent">
 								<div class="orderContentpic">
 									<div class="imgBox">
-										<a href="orderinfo.html"><img
-											src="${pageContext.request.contextPath }/images/youzi.jpg"></a>
+										<a href="orderinfo.html">
+											<img
+												src="${pageContext.request.contextPath }/images/youzi.jpg">
+										</a>
 									</div>
 								</div>
 								<div class="detailContent">
@@ -181,8 +194,10 @@
 							<div class="orderContent">
 								<div class="orderContentpic">
 									<div class="imgBox">
-										<a href="orderinfo.html"><img
-											src="${pageContext.request.contextPath }/images/heart.jpg"></a>
+										<a href="orderinfo.html">
+											<img
+												src="${pageContext.request.contextPath }/images/heart.jpg">
+										</a>
 									</div>
 								</div>
 								<div class="detailContent">
@@ -210,7 +225,9 @@
 							<i class="s-icon"></i>会员中心
 						</div>
 						<div class="s-bar">
-							<a href="suggest.html"><i class="s-icon"></i>意见反馈</a>
+							<a href="suggest.html">
+								<i class="s-icon"></i>意见反馈
+							</a>
 						</div>
 					</div>
 				</div>
@@ -220,12 +237,12 @@
 			<!--收藏和足迹-->
 			<div data-am-widget="tabs" class="am-tabs collection">
 				<ul class="am-tabs-nav am-cf">
-					<li class="am-active">
-						<a href="[data-tab-panel-0]"><i class="am-icon-heart"></i>商品收藏</a>
-					</li>
-					<li class="">
-						<a href="[data-tab-panel-1]"><i class="am-icon-paw"></i>购物足迹</a>
-					</li>
+					<li class="am-active"><a href="[data-tab-panel-0]">
+							<i class="am-icon-heart"></i>商品收藏
+						</a></li>
+					<li class=""><a href="[data-tab-panel-1]">
+							<i class="am-icon-paw"></i>购物足迹
+						</a></li>
 				</ul>
 				<div class="am-tabs-bd">
 
@@ -233,46 +250,38 @@
 						<div class="am-slider am-slider-default am-slider-carousel"
 							data-am-flexslider="{itemWidth:155,slideshow: false}">
 							<ul class="am-slides">
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/EZA27501.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/BxJk6.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/Hxcag60.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/youzi.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/EZA27501.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/BxJk6.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/Hxcag60.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/youzi.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
 
 							</ul>
 						</div>
@@ -281,151 +290,44 @@
 						<div class="am-slider am-slider-default am-slider-carousel"
 							data-am-flexslider="{itemWidth:155, slideshow: false}">
 							<ul class="am-slides">
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/BxJk6.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/Hxcag60.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/youzi.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
-								<li>
-									<a><img class="am-thumbnail"
-										src="${pageContext.request.contextPath }/images/EZA27501.jpg" /></a>
-									<strong class="price">¥32.9</strong>
-								</li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/BxJk6.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/Hxcag60.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/youzi.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/EZA27501.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/BxJk6.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/Hxcag60.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/youzi.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
+								<li><a>
+										<img class="am-thumbnail"
+											src="${pageContext.request.contextPath }/images/EZA27501.jpg" />
+									</a> <strong class="price">¥32.9</strong></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
-
 	</div>
-
-	<aside class="menu">
-		<ul>
-			<li class="person active">
-				<a href="/user/index.html"><i class="am-icon-user"></i>个人中心</a>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-newspaper-o"></i>个人资料
-				</p>
-				<ul>
-					<li>
-						<a href="information.html">个人信息</a>
-					</li>
-					<li>
-						<a href="safety.html">安全设置</a>
-					</li>
-					<li>
-						<a href="address.html">地址管理</a>
-					</li>
-					<li>
-						<a href="cardlist.html">快捷支付</a>
-					</li>
-				</ul>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-balance-scale"></i>我的交易
-				</p>
-				<ul>
-					<li>
-						<a href="order.html">订单管理</a>
-					</li>
-					<li>
-						<a href="change.html">退款售后</a>
-					</li>
-					<li>
-						<a href="comment.html">评价商品</a>
-					</li>
-				</ul>
-			</li>
-			<li class="person">
-				<p>
-					<i class="am-icon-dollar"></i>我的资产
-				</p>
-				<ul>
-					<li>
-						<a href="points.html">我的积分</a>
-					</li>
-					<li>
-						<a href="coupon.html">优惠券 </a>
-					</li>
-					<li>
-						<a href="bonus.html">红包</a>
-					</li>
-					<li>
-						<a href="walletlist.html">账户余额</a>
-					</li>
-					<li>
-						<a href="bill.html">账单明细</a>
-					</li>
-				</ul>
-			</li>
-
-			<li class="person">
-				<p>
-					<i class="am-icon-tags"></i>我的收藏
-				</p>
-				<ul>
-					<li>
-						<a href="collection.html">收藏</a>
-					</li>
-					<li>
-						<a href="foot.html">足迹</a>
-					</li>
-				</ul>
-			</li>
-
-			<li class="person">
-				<p>
-					<i class="am-icon-qq"></i>在线客服
-				</p>
-				<ul>
-					<li>
-						<a href="consultation.html">商品咨询</a>
-					</li>
-					<li>
-						<a href="suggest.html">意见反馈</a>
-					</li>
-
-					<li>
-						<a href="news.html">我的消息</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</aside>
+	<jsp:include page="aside.jsp"></jsp:include>
 </div>
