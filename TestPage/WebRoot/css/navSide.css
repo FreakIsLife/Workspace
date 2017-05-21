@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+.nav-pills>li.active>a, 
+.nav-pills>li.active>a:focus, 
+.nav-pills>li.active>a:hover
+	{
+	color: #000;
+	background-color: #e7e7e7;
+}
+
+ul li .nav-pills>li.active>a, 
+ul li .nav-pills>li.active>a:focus, 
+ul li .nav-pills>li.active>a:hover
+	{
+	color: #000;
+	background-color: #fff;
+}
+
+a {
+	color: #777777;
+}
+
+a:focus, a:hover {
+	color: #555555;
+}
+
+.cut {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
