@@ -92,6 +92,7 @@ public class UserServlet extends BaseServlet {
 		}
 		bean.setUserPassword(loginUser.getUserPassword());
 		us.saveInfo(bean);
+		bean.setUserIsShop(loginUser.getUserIsShop());
 		session.setAttribute("loginUser", bean);
 		return null;
 	}

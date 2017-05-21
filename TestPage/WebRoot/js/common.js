@@ -166,7 +166,6 @@ $(function() {
 	 */
 	$(document).pjax('.flushPage', '#flush');
 	$(window).on('popstate', function(){
-		
 		$.pjax.reload('#flush');
 	});
 	function PjaxreLoad(loadPage){

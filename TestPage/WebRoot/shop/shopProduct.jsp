@@ -36,6 +36,101 @@
 		</button>
 	</div>
 	<table id="tb_products" data-classes="table table-no-bordered"></table>
+
+	<!-- 商品模态框 -->
+	<div class="modal fade modalControl" id="productModal" tabindex="-1"
+		role="dialog" aria-labelledby="productAddModalLabel">
+		<div class="modal-dialog" role="document" style="width:700px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="productAddModalLabel">商品信息</h4>
+				</div>
+				<div class="modal-body">
+					<form action="${ctx }/productServlet?method=add"
+						class="form-horizontal">
+						<div class="form-group col-md-4">
+							<div class="form-file" style="width:100%;height:150px;float:left">
+								<input id="fileInput" type="file" name="productImg"
+									value="${product.prductImg }" style="width:100%;height:100%;" />
+								<img alt="头像"
+									src="${product.userImg == null ?'/images/no-headImg.jpg':product.productImg}"
+									class="img-rounded" style="width:100%;height:100%;">
+							</div>
+						</div>
+						<div class="form-group" hidden="hidden">
+							<input type="text" class="form-control" id="productId"
+								name="productId">
+							<input type="text" class="form-control" id="productSale"
+								name="productSale">
+						</div>
+						<div class="form-group col-md-8">
+							<label for="productName" class="col-md-4 control-label">商品名称：</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="productName"
+									name="productName">
+							</div>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="productLeft" class="col-md-4 control-label">库存：</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="productLeft"
+									name="productLeft">
+							</div>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="productPrice" class="col-md-4 control-label">价格：</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="productPrice"
+									name="productPrice">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer" style="clear: both;">
+					<!-- <div class="has-error pull-left">
+					<label class="control-label error-text"></label>
+				</div> -->
+					<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					<button type="button" class="btn btn-primary ProductSubmitBtn">
+						<span class="glyphicon glyphicon-floppy-disk"></span>
+						保存
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除模态框 -->
+	<div class="modal fade modalControl" id="productDelModal" tabindex="-1"
+		role="dialog" aria-labelledby="productDelModalLabel">
+		<div class="modal-dialog" role="document" style="width:400px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="productDelModalLabel">确认？</h4>
+				</div>
+				<div class="modal-body">
+					<form action="${ctx }/productServlet?method=delete">
+						<div class="form-group">
+							<label class="control-label text-center">你确定要删除吗？</label>
+							<input type="text" hidden="hidden" name="delData" value="">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-danger productSubmitBtn">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 模态框结束  -->
 </div>
 <script>
 	$(function() {
@@ -117,11 +212,12 @@
 					valign : 'middle',
 					sortable : true
 				}, {
-					field : '',
-					title : '销量',
+					field : 'operate',
+					title : '操作',
 					align : 'center',
 					valign : 'middle',
-					sortable : true
+					events : operateEvents,
+					formatter : operateFormatter
 				}, ]
 			});
 		};
@@ -137,6 +233,47 @@
 			};
 			return temp;
 		};
+		function operateFormatter(value, row, index) {
+			return [
+					'<a class="edit"   href="javascript:void(0)" title="编辑">',
+					'<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+					'</a>',
+					'<a class="remove" href="javascript:void(0)" title="删除">',
+					'<i class="glyphicon glyphicon-remove"></i>', '</a>' ]
+					.join('');
+		}
+		;
+		window.operateEvents = {
+			'click .remove' : function(e, value, row, index) {
+				if (confirm('您确认想要删除记录吗？')) {
+					$.ajax({
+						url : ctx + "/productServlet?method=removeProduct",
+						type : "POST",
+						data : {
+							id : row.productId
+						},
+						success : function(msg) {
+							if (msg.length > 0) {
+								toastr.error(msg);
+							} else {
+								toastr.success("删除成功!");
+								$('#tb_products').bootstrapTable('refresh');
+							}
+						}
+					});
+				}
+			},
+			'click .edit' : function(e, value, row, index) {
+				$('#productId').val(row.productId);
+				$('#productImg').val(row.productImg);
+				$('#productName').val(row.productName);
+				$('#productPrice').val(row.productPrice);
+				$('#productSale').val(row.productSale);
+				$('#productLeft').val(row.productLeft);
+				$('#productModal').find('form').attr('action',ctx+'/productServlet?method=edit');
+				$('#productModal').modal();
+			}
+		};
 		return oTableInit;
 	};
 
@@ -149,8 +286,34 @@
 			$('#btn_query').click(function() {
 				$('#tb_products').bootstrapTable('refresh');
 			});
+			$('#btn_add').click(function() {
+				$('#productModal').modal();
+			});
 		};
 
 		return oInit;
 	};
+	$('.ProductSubmitBtn').on('click', function() {
+		/* var $submitError = $($(this).parent().find('.error-text')); */
+		var $submitForm = $($(this).parent().prev().find('form'));
+		var submitUrl = $submitForm.attr('action');
+		var submitMsg = $submitForm.serialize();
+		$.ajax({
+			url : submitUrl,
+			data : submitMsg,
+			type : 'post',
+			dataType : 'text',
+			success : function(msg) {
+				if (msg.length > 0) {
+					/* $submitError.text(msg); */
+					toastr.error(msg);
+				} else {
+					location.reload();
+				}
+			},
+			error : function() {
+				toastr.error("连接超时失败，请稍后再试！");
+			}
+		})
+	});
 </script>
