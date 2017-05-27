@@ -166,7 +166,6 @@ $(function() {
 	 */
 	$(document).pjax('.flushPage', '#flush');
 	$(window).on('popstate', function(){
-		
 		$.pjax.reload('#flush');
 	});
 	function PjaxreLoad(loadPage){
@@ -290,7 +289,8 @@ $(function() {
 	/**
 	 * 当模态框退出时，清空内部表单
 	 */
-	$('.modalControl').on('hide.bs.modal', function() {
+	$(document).on('hide.bs.modal', '.modalControl', function() {
+	/*$('.modalControl').on('hide.bs.modal', function() {*/
 		$(this).find("form").formValidation('resetForm', true);
 	});
 });

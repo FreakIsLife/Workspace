@@ -3,7 +3,7 @@
 /*
 	截断字符串，加上style-maxwidth
  */
-.cut {	
+.cut {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -17,4 +17,16 @@
 	height: 100px;
 	cursor: pointer;
 	opacity: 0;
+}
+
+/*
+	覆盖modal父类css，防止弹出modal 导航栏移位
+*/
+.modal-open {
+	overflow: initial !important;
+}
+
+body.modal-open {
+	overflow-y: auto !important;
+	padding-right: 0 !important;
 }

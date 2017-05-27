@@ -50,8 +50,8 @@
 						</li>
 					</c:if>
 					<li id="cart">
-						<a href="#" role="button" aria-haspopup="true"
-							aria-expanded="false"
+						<a href='<c:url value="/user/myCart.jsp"></c:url>' role="button"
+							aria-haspopup="true" aria-expanded="false"
 							data-content='
 								<table class="table" style="width:300px;margin-bottom:0;">
 								<tbody>
