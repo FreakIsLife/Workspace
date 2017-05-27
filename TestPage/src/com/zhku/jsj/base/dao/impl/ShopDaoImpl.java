@@ -2,8 +2,10 @@ package com.zhku.jsj.base.dao.impl;
 
 import java.sql.SQLException;
 
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+
 
 import com.zhku.jsj.shop.dao.ShopDao;
 import com.zhku.jsj.shop.domain.Shop;
@@ -21,5 +23,4 @@ public class ShopDaoImpl implements ShopDao {
 		sql = "select * from shop_info where shopId = ?";
 		return qr.query(sql, new BeanHandler<Shop>(Shop.class), bean.getShopId());
 	}
-
 }

@@ -1,6 +1,7 @@
 package com.zhku.jsj.user.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.zhku.jsj.user.domain.User;
 
@@ -41,8 +42,24 @@ public interface UserDao {
 
 	/**
 	 * 设置用户状态是开店
+	 * 
 	 * @throws SQLException
 	 */
 	void setShop(String userId) throws SQLException;
+
+	/**
+	 * 加载用户信息
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	List<User> load() throws SQLException;
+
+	/**
+	 * 删除用户信息
+	 * @param userId
+	 * @throws SQLException
+	 */
+	void deleteUser(String userId) throws SQLException;
 
 }
