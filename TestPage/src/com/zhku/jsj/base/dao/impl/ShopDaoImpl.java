@@ -1,9 +1,11 @@
 package com.zhku.jsj.base.dao.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.zhku.jsj.shop.dao.ShopDao;
 import com.zhku.jsj.shop.domain.Shop;
@@ -19,7 +21,18 @@ public class ShopDaoImpl implements ShopDao {
 				bean.getShopQQ(), null };
 		qr.update(sql, params);
 		sql = "select * from shop_info where shopId = ?";
-		return qr.query(sql, new BeanHandler<Shop>(Shop.class), bean.getShopId());
+		return qr.query(sql, new BeanHandler<Shop>(Shop.class),
+				bean.getShopId());
+	}
+
+	@Override
+	public List<Shop> findListById(Object[] shopId) throws SQLException {
+		String sql = "select * from shop_info where shopId in(?";
+		for (int i = 0; i < shopId.length - 1; i++) {
+			sql += ",?";
+		}
+		sql += ")";
+		return qr.query(sql, new BeanListHandler<Shop>(Shop.class), shopId);
 	}
 
 }

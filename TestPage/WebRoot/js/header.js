@@ -50,8 +50,8 @@ $(function() {
 							message : '用户名长度需要在5-30之间'
 						},
 						regexp : {
-							regexp : /^[a-zA-Z0-9_\.\u4e00-\u9fa5]+$/,
-							message : '用户名只能由中文，字母，数字，小数点或者下划线组成！'
+							regexp : /^[a-zA-Z0-9_\.]+$/,
+							message : '用户名只能由字母，数字，小数点或者下划线组成！'
 						},
 						remote : {
 							type : 'POST',

@@ -41,13 +41,13 @@
 		</a>
 		<ul class="nav nav-pills nav-stacked collapse" id="sub-item-2">
 			<li class="active" data-toggle="tab">
-				<a class="flushPage" href="#">
+				<a id="myCart" class="flushPage" href='<c:url value="/user/myCart.jsp"></c:url>'>
 					<span class="glyphicon glyphicon-share-alt"></span>
 					我的购物车
 				</a>
 			</li>
 			<li data-toggle="tab">
-				<a class="flushPage" href="#">
+				<a id="myOrder" class="flushPage" href='<c:url value="/user/myOrder.jsp"></c:url>'>
 					<span class="glyphicon glyphicon-share-alt"></span>
 					我的订单
 				</a>

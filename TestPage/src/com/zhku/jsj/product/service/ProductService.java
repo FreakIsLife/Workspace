@@ -10,6 +10,7 @@ import com.zhku.jsj.base.dao.factory.DaoFactory;
 import com.zhku.jsj.pager.Page;
 import com.zhku.jsj.product.dao.ProductDao;
 import com.zhku.jsj.product.domain.Product;
+import com.zhku.jsj.utils.common.CommonUtil;
 
 public class ProductService {
 	private ProductDao pd = DaoFactory.getInstance()
@@ -36,12 +37,12 @@ public class ProductService {
 				 */
 				int totalRow = pd.countByShopId(shopId);
 				pageBean.setTotalRow(totalRow);
-				return pd.findByShop(pageBean, shopId); 
+				return pd.findByShop(pageBean, shopId);
 			} else {
 				/*
 				 * 有查询条件，返回符合条件的总记录数
 				 */
-				int totalRow = pd.countByShopIdAndName(shopId,productName);
+				int totalRow = pd.countByShopIdAndName(shopId, productName);
 				pageBean.setTotalRow(totalRow);
 				return pd.findByShopAndName(pageBean, productName, shopId);
 			}
@@ -52,6 +53,7 @@ public class ProductService {
 
 	/**
 	 * 将productList转换JSONArray
+	 * 
 	 * @param productList
 	 * @return
 	 */
@@ -69,5 +71,50 @@ public class ProductService {
 			productListJson.add(beanJson);
 		}
 		return productListJson.toString();
+	}
+
+	/**
+	 * 增加商品
+	 * 
+	 * @param bean
+	 */
+	public void addProduct(Product bean) {
+		try {
+			pd.addOneProduct(bean);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 编辑商品信息
+	 * 
+	 * @param bean
+	 */
+	public void editProduct(Product bean) {
+		try {
+			pd.editOneProduct(bean);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 删除商品
+	 * 
+	 * @param delData
+	 */
+	public void deleteProduct(String delData) {
+		try {
+			String[] delId = delData.split(",");
+			if (delId.length == 1) {
+				pd.deleteOneProduct(delId[0]);
+			} else if (delId.length > 1) {
+				Object [][]params = CommonUtil.tranArray(delId);
+				pd.deleteMutiProduct(params);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

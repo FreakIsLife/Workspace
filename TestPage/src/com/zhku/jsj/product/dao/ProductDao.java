@@ -40,5 +40,65 @@ public interface ProductDao {
 	 * @return
 	 */
 	int countByShopIdAndName(String shopId, String productName) throws SQLException;
+
+	/**
+	 * 增加一个商品
+	 * @param bean
+	 * @throws SQLException
+	 */
+	void addOneProduct(Product bean) throws SQLException;
+
+	/**
+	 * 编辑一个商品
+	 * @param bean
+	 * @throws SQLException
+	 */
+	void editOneProduct(Product bean) throws SQLException;
+
+	/**
+	 * 删除一个商品
+	 * @param string
+	 * @throws SQLException
+	 */
+	void deleteOneProduct(String delId) throws SQLException;
+ 
+	/**
+	 * 删除多个商品
+	 * @param delId
+	 * @throws SQLException
+	 */
+	void deleteMutiProduct(Object[][] params) throws SQLException;
+
+	/**
+	 * 查询商品的数量
+	 * @param productId
+	 * @return
+	 * @throws SQLException
+	 */
+	int findProductNum(String productId) throws SQLException;
+
+	/**
+	 * 更改商品的数量
+	 * @param productId
+	 * @param num
+	 * @throws SQLException
+	 */
+	void changeProductNum(String productId, int num) throws SQLException;
+
+	/**
+	 * 通过商品Id查询商品信息
+	 * @param productId
+	 * @return
+	 * @throws SQLException
+	 */
+	Product findById(String productId) throws SQLException;
+
+	/**
+	 * 批量查找商品
+	 * @param itemId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Product> findListById(Object[] productId) throws SQLException;
 	
 }

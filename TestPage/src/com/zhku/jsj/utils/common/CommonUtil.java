@@ -23,14 +23,13 @@ public class CommonUtil {
 	 * @param clazz
 	 * @return
 	 * 
-	 * 把Map转换成指定类型
+	 *         把Map转换成指定类型
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T> T toBean(Map map, Class<T> clazz) {
 		try {
 			/*
-			 * 1. 通过参数clazz创建实例 
-			 * 2. 使用BeanUtils.populate把map的数据封闭到bean中
+			 * 1. 通过参数clazz创建实例 2. 使用BeanUtils.populate把map的数据封闭到bean中
 			 */
 			T bean = clazz.newInstance();
 			ConvertUtils.register(new DateConverter(), java.util.Date.class);
@@ -39,5 +38,25 @@ public class CommonUtil {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 将一维数组转换为二维数组
+	 * 
+	 * @param delId
+	 * @return
+	 */
+	public static Object[][] tranArray(Object[] param) {
+		Object[] subParam = ((String) param[0]).split("-");
+		Object[][] params = new Object[param.length][subParam.length];
+		int index = 0;
+		for (Object[] objects : params) {
+			int subIndex = 0;
+			String[] subParams = ((String) param[index++]).split("-");
+			for (String str : subParams) {
+				objects[subIndex++] = str;
+			}
+		}
+		return params;
 	}
 }
