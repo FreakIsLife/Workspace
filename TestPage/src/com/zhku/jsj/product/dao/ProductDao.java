@@ -10,6 +10,7 @@ public interface ProductDao {
 
 	/**
 	 * 通过商店Id查询商品列表
+	 * 
 	 * @param pageBean
 	 * @param shopId
 	 * @return
@@ -18,6 +19,7 @@ public interface ProductDao {
 
 	/**
 	 * 通过商店Id和商品名称查询商品列表
+	 * 
 	 * @param pageBean
 	 * @param productName
 	 * @param shopId
@@ -28,6 +30,7 @@ public interface ProductDao {
 
 	/**
 	 * 统计店铺商品记录数
+	 * 
 	 * @param shopId
 	 * @return
 	 */
@@ -35,10 +38,26 @@ public interface ProductDao {
 
 	/**
 	 * 根据查询条件统计商品记录数
+	 * 
 	 * @param shopId
 	 * @param productName
 	 * @return
 	 */
-	int countByShopIdAndName(String shopId, String productName) throws SQLException;
-	
+	int countByShopIdAndName(String shopId, String productName)
+			throws SQLException;
+
+	/**
+	 * 
+	 * @param pageBean
+	 * @throws SQLException
+	 */
+	void getProduct(Page pageBean) throws SQLException;
+
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	int count() throws SQLException;
+
 }

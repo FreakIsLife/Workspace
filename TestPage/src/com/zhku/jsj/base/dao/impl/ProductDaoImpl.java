@@ -51,4 +51,19 @@ public class ProductDaoImpl implements ProductDao {
 				+ productName + "%");
 		return count.intValue();
 	}
+
+	@Override
+	public void getProduct(Page pageBean) throws SQLException {
+		String sql = "select * from product_info limit ?,?";
+		Object[] params = {pageBean.getOffset(),pageBean.getLimit()};
+		pageBean.setBeanList(qr.query(sql, new BeanListHandler<Product>(Product.class), params));
+	}
+
+	@Override
+	public int count() throws SQLException {
+		String sql="select count(*) from product_info";
+		Number rs = qr.query(sql, new ScalarHandler<Number>());
+		return rs.intValue();
+	}
+
 }

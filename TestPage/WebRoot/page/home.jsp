@@ -47,17 +47,20 @@
 	<div class="container" style="margin-top:50px;">
 		<div class="page-header">
 			<h3>
-				类淘宝购物平台<small> -Demo 1.0</small>
+				世界之大<small> -Demo 1.0</small>
 			</h3>
 		</div>
+		
 		<div class="row" id="body">
 			<div class="navbar-left col-sm-3 col-lg-2 text-center">
 				<jsp:include page="navSider.jsp"></jsp:include>
 			</div>
+			
 			<div class="col-sm-9 col-lg-10" id="flush">
 				<jsp:include page="showPage.jsp"></jsp:include>
 			</div>
 		</div>
+		
 	</div>
 	<script type="text/javascript">
 		$(function() {
@@ -66,5 +69,58 @@
 			}
 		});
 	</script>
+	
+	
+	
+	
+<!--这是通知的版块  -->
+	<script> 
+$(document).ready(function(){
+  $("#flip").click(function(){
+    $("#panel").slideToggle("slow");
+  });
+});
+
+$(document).ready(function(){
+  $("#flip").mouseleave(function(){
+	setTimeout(function() { 
+		$('#panel').slideUp("slow") 
+		}, 2000); 
+  });
+});
+
+
+</script>
+ 
+<style type="text/css"> 
+#panel,#flip
+{
+	padding:5px;
+	text-align:center;
+	background-color:#F8F8F8;
+	border:solid 1px #c3c3c3;
+}
+#panel
+{	
+	
+	display:none;
+}
+#rg_top{
+	position: absolute;
+    width: 120px;
+    left: 1200px;
+    top: 100px;
+}
+</style>
+</head>
+<body>
+ 
+<div id="rg_top">
+<div id="flip"><span class="glyphicon glyphicon-bullhorn"></span>通知<font size="1">(点我展开)</font></div>
+<div id="panel">亲，匹克店所有商品今天7折，只限今天！</div>
+</div>
+
+ 
+
 </body>
 </html>

@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand recoverA"
-				href='<c:url value="/index.jsp"></c:url>'>类淘宝</a>
+				href='<c:url value="/index.jsp"></c:url>'>世界之大</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">

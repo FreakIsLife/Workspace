@@ -52,4 +52,52 @@ public class productServlet extends BaseServlet {
 				+ productListJson + "}";
 		return json;
 	}
+
+	/* 怎么样子获得javabean的？如何封装数据的？ */
+	public String getProduct(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Page pageBean = CommonUtil
+				.toBean(request.getParameterMap(), Page.class);
+
+		// 1.默认访问第一页
+		pageBean.setPageNum(1);
+		String _pageNum = request.getParameter("pageNum");
+		if (_pageNum != null) {
+			pageBean.setPageNum(Integer.parseInt(_pageNum));
+		}
+		pageBean.setLimit(12);
+		pageBean.setOffset((pageBean.getPageNum() - 1) * pageBean.getLimit());
+		ps.getProduct(pageBean);
+		request.setAttribute("pageBean", pageBean);
+		request.getRequestDispatcher("/page/productList.jsp").forward(request,
+				response);
+		return null;
+	}
+	
+	public String getProductIntro(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("utf-8");
+		String pId = request.getParameter("productId");
+		String proName =request.getParameter("productName");
+		String pName = new String(proName.getBytes("utf-8"),"ISO8859-1");
+		
+		String pSale =request.getParameter("productSale");
+		String pPrice =request.getParameter("productPrice");
+		String pLeft =request.getParameter("productLeft");
+		
+		request.setAttribute("productId", pId);
+		request.setAttribute("productName", pName);
+		request.setAttribute("productSale", pSale);
+		request.setAttribute("productPrice", pPrice);
+		request.setAttribute("productLeft", pLeft);
+		System.out.println(pId+"nihao !!");
+		
+		
+		
+		request.getRequestDispatcher("/page/productIntro.jsp").forward(request,
+				response);
+		return null;
+	}
+	
 }

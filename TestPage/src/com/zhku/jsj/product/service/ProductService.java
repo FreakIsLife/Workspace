@@ -36,12 +36,12 @@ public class ProductService {
 				 */
 				int totalRow = pd.countByShopId(shopId);
 				pageBean.setTotalRow(totalRow);
-				return pd.findByShop(pageBean, shopId); 
+				return pd.findByShop(pageBean, shopId);
 			} else {
 				/*
 				 * 有查询条件，返回符合条件的总记录数
 				 */
-				int totalRow = pd.countByShopIdAndName(shopId,productName);
+				int totalRow = pd.countByShopIdAndName(shopId, productName);
 				pageBean.setTotalRow(totalRow);
 				return pd.findByShopAndName(pageBean, productName, shopId);
 			}
@@ -52,6 +52,7 @@ public class ProductService {
 
 	/**
 	 * 将productList转换JSONArray
+	 * 
 	 * @param productList
 	 * @return
 	 */
@@ -70,4 +71,14 @@ public class ProductService {
 		}
 		return productListJson.toString();
 	}
+
+	public void getProduct(Page pageBean) {
+		try {
+			pageBean.setTotalRow(pd.count());
+			pd.getProduct(pageBean);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }
