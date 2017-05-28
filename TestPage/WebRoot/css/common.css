@@ -4,9 +4,11 @@
 	截断字符串，加上style-maxwidth
  */
 .cut {
-	overflow: hidden;
+	display: block;
+	margin: 0 auto;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	overflow: hidden;
 }
 
 .form-file input[type=file] {

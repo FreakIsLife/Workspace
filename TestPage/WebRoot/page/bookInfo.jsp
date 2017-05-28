@@ -10,7 +10,7 @@
 		oInfoInit.Init = function() {
 			$.ajax({
 				cache : false, // 上传文件不需要缓存
-				url : ctx + '/shopServlet?method=getShopInfo',
+				url : ctx + '/productServlet?method=getProduct',
 				data : '',
 				type : 'post',
 				dataType : 'text',

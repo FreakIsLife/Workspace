@@ -23,4 +23,19 @@ public interface ShopDao {
 	 */
 	List<Shop> findListById(Object[] shopId) throws SQLException;
 
+	/**
+	 * 根据店铺Id来查询店铺信息
+	 * @param shopId
+	 * @return
+	 * @throws SQLException
+	 */
+	Shop findOneById(String shopId) throws SQLException;
+
+	/**
+	 * 更新一个店铺的信息
+	 * @param bean
+	 * @throws SQLException
+	 */
+	void updateOneInfo(Shop bean) throws SQLException;
+
 }

@@ -3,12 +3,17 @@ package com.zhku.jsj.base.dao.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.KeyedHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.zhku.jsj.order.dao.OrderDao;
 import com.zhku.jsj.order.domain.Order;
 import com.zhku.jsj.order.domain.OrderItem;
+import com.zhku.jsj.pager.Page;
 import com.zhku.jsj.utils.jdbc.TxQueryRunner;
 
 public class OrderDaoImpl implements OrderDao {
@@ -49,5 +54,81 @@ public class OrderDaoImpl implements OrderDao {
 		for (Object[][] beanObject : beanItem) {
 			qr.batch(sql, beanObject);
 		}
+	}
+
+	@Override
+	public int countByParams(Map<String, Object> param) throws SQLException {
+		String sql = "select count(*) from order_info where 1=1";
+		List<Object> paramList = new ArrayList<Object>();
+		for (String key : param.keySet()) {
+			if (!"".equals(param.get(key)) && param.get(key) != null) {
+				if ("userId".equals(key)) {
+					sql += " and orderUser=?";
+				}
+				if ("shopId".equals(key)) {
+					sql += " and orderShop=?";
+				}
+				if ("orderId".equals(key)) {
+					sql += " and orderId=?";
+				}
+				if ("status".equals(key)) {
+					sql += " and orderStatus=?";
+				}
+				paramList.add(param.get(key));
+			}
+		}
+		Object[] params = paramList.toArray();
+		Number rs = qr.query(sql, new ScalarHandler<Number>(), params);
+		return rs.intValue();
+	}
+
+	@Override
+	public List<Order> findByParams(Page pageBean, Map<String, Object> param)
+			throws SQLException {
+		String sql = "select * from order_info where 1=1";
+		List<Object> paramList = new ArrayList<Object>();
+		for (String key : param.keySet()) {
+			if (!"".equals(param.get(key)) && param.get(key) != null) {
+				if ("userId".equals(key)) {
+					sql += " and orderUser=?";
+				}
+				if ("shopId".equals(key)) {
+					sql += " and orderShop=?";
+				}
+				if ("orderId".equals(key)) {
+					sql += " and orderId=?";
+				} else if ("status".equals(key)) {
+					sql += " and orderStatus=?";
+				}
+				paramList.add(param.get(key));
+			}
+		}
+		sql += " order by " + pageBean.getOrdername() + " "
+				+ pageBean.getOrder() + " limit ?,?";
+		paramList.add(pageBean.getOffset());
+		paramList.add(pageBean.getLimit());
+		Object[] params = paramList.toArray();
+		return qr.query(sql, new BeanListHandler<Order>(Order.class), params);
+	}
+
+	@Override
+	public List<OrderItem> findItemById(String orderId) throws SQLException {
+		String sql = "select * from order_item where itemOrder=?";
+		return qr.query(sql, new BeanListHandler<OrderItem>(OrderItem.class),
+				orderId);
+	}
+
+	@Override
+	public void updateStatusById(String orderId, int status)
+			throws SQLException {
+		String sql = "update order_info set orderStatus=? where orderId=?";
+		Object[] params = { status, orderId };
+		qr.update(sql, params);
+	}
+
+	@Override
+	public Map<String, Map<String, Object>> findProductAndNumById(String orderId) throws SQLException {
+		String sql = "select itemNum,itemProduct from order_item where itemOrder=?";
+		return qr.query(sql, new KeyedHandler<String>("itemProduct"),orderId);
 	}
 }

@@ -10,6 +10,7 @@ public interface ProductDao {
 
 	/**
 	 * 通过商店Id查询商品列表
+	 * 
 	 * @param pageBean
 	 * @param shopId
 	 * @return
@@ -18,6 +19,7 @@ public interface ProductDao {
 
 	/**
 	 * 通过商店Id和商品名称查询商品列表
+	 * 
 	 * @param pageBean
 	 * @param productName
 	 * @param shopId
@@ -28,6 +30,7 @@ public interface ProductDao {
 
 	/**
 	 * 统计店铺商品记录数
+	 * 
 	 * @param shopId
 	 * @return
 	 */
@@ -35,14 +38,17 @@ public interface ProductDao {
 
 	/**
 	 * 根据查询条件统计商品记录数
+	 * 
 	 * @param shopId
 	 * @param productName
 	 * @return
 	 */
-	int countByShopIdAndName(String shopId, String productName) throws SQLException;
+	int countByShopIdAndName(String shopId, String productName)
+			throws SQLException;
 
 	/**
 	 * 增加一个商品
+	 * 
 	 * @param bean
 	 * @throws SQLException
 	 */
@@ -50,6 +56,7 @@ public interface ProductDao {
 
 	/**
 	 * 编辑一个商品
+	 * 
 	 * @param bean
 	 * @throws SQLException
 	 */
@@ -57,13 +64,15 @@ public interface ProductDao {
 
 	/**
 	 * 删除一个商品
+	 * 
 	 * @param string
 	 * @throws SQLException
 	 */
 	void deleteOneProduct(String delId) throws SQLException;
- 
+
 	/**
 	 * 删除多个商品
+	 * 
 	 * @param delId
 	 * @throws SQLException
 	 */
@@ -71,6 +80,7 @@ public interface ProductDao {
 
 	/**
 	 * 查询商品的数量
+	 * 
 	 * @param productId
 	 * @return
 	 * @throws SQLException
@@ -79,6 +89,7 @@ public interface ProductDao {
 
 	/**
 	 * 更改商品的数量
+	 * 
 	 * @param productId
 	 * @param num
 	 * @throws SQLException
@@ -87,6 +98,7 @@ public interface ProductDao {
 
 	/**
 	 * 通过商品Id查询商品信息
+	 * 
 	 * @param productId
 	 * @return
 	 * @throws SQLException
@@ -95,10 +107,59 @@ public interface ProductDao {
 
 	/**
 	 * 批量查找商品
+	 * 
 	 * @param itemId
 	 * @return
 	 * @throws SQLException
 	 */
 	List<Product> findListById(Object[] productId) throws SQLException;
-	
+
+	/**
+	 * 获取商品
+	 * 
+	 * @param pageBean
+	 * @throws SQLException
+	 */
+	void getProduct(Page pageBean) throws SQLException;
+
+	/**
+	 * 返回总记录数
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	int count() throws SQLException;
+
+	/**
+	 * 搜索时返回List列表
+	 * @param pageBean
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Product> getSearchProduct(Page pageBean) throws SQLException;
+
+	/**
+	 * 统计查询的总条数
+	 * @param productName
+	 * @return
+	 * @throws SQLException
+	 */
+	int countByName(String productName) throws SQLException;
+
+	/**
+	 * 返回相关产品名的List
+	 * @param pageBean
+	 * @param productName
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Product> findByName(Page pageBean, String productName) throws SQLException;
+
+	/**
+	 * 更新销量
+	 * @param params
+	 * @throws SQLException
+	 */
+	void updateSale(Object[][] params) throws SQLException;
+
 }

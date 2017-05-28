@@ -11,15 +11,29 @@ public class Page {
 	private int limit; // 页面大小
 	private int offset; // 当前页偏移量
 	private int totalRow; // 总记录数
+	private int totalPage; // 总页数
+	private int pageNum; // 当前页面
 	private String order; // 排序方式
 	private String ordername; // 排序列名
 	private List<?> beanList;
 
-	// 计算总页数
-/*	public int getTotalPage() {
-		int tp = totalRow / limit;
-		return totalRow % limit == 0 ? tp : tp + 1;
-	}*/
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getTotalPage() {
+		this.totalPage = totalRow / limit;
+		return totalRow % limit == 0 ? totalPage : totalPage + 1;
+	}
+
 	public int getLimit() {
 		return limit;
 	}

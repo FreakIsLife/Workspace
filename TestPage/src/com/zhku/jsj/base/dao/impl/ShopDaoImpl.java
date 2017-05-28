@@ -35,4 +35,18 @@ public class ShopDaoImpl implements ShopDao {
 		return qr.query(sql, new BeanListHandler<Shop>(Shop.class), shopId);
 	}
 
+	@Override
+	public Shop findOneById(String shopId) throws SQLException {
+		String sql = "select * from shop_info where shopId=?";
+		return qr.query(sql, new BeanHandler<Shop>(Shop.class), shopId);
+	}
+
+	@Override
+	public void updateOneInfo(Shop bean) throws SQLException {
+		String sql = "update shop_info set shopName=?,shopQQ=? where shopId=?";
+		Object[] params = { bean.getShopName(), bean.getShopQQ(),
+				bean.getShopId() };
+		qr.update(sql, params);
+	}
+
 }

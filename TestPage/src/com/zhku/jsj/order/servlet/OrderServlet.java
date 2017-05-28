@@ -6,9 +6,12 @@ import java.util.Map;
 
 import com.zhku.jsj.base.servlet.BaseServlet;
 import com.zhku.jsj.order.domain.Order;
+import com.zhku.jsj.order.domain.OrderItem;
 import com.zhku.jsj.order.service.OrderService;
+import com.zhku.jsj.pager.Page;
 import com.zhku.jsj.shop.domain.Shop;
 import com.zhku.jsj.user.domain.User;
+import com.zhku.jsj.utils.common.CommonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -30,6 +33,90 @@ public class OrderServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderService os = new OrderService();
 
+	/**
+	 * 更新订单状态
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String updateStatus(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String orderId = request.getParameter("orderId");
+		String orderStatus = request.getParameter("status");
+		os.updateStatus(orderId,orderStatus);
+		return null;
+	}
+	/**
+	 * 获取订单项
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getOrderItem(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String orderId = request.getParameter("orderId");
+		List<OrderItem> itemList = os.findOrderItem(orderId);
+		String itemListJson = os.getItemListJson(itemList);
+		return itemListJson;
+	}
+
+	/**
+	 * 获取我的订单
+	 * 
+	 * @1. 获取查询的条件，包括分页的大小、偏移量、过滤的订单状态
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getMyOrder(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Page pageBean = CommonUtil
+				.toBean(request.getParameterMap(), Page.class);
+		// 获取查询的订单Id
+		String orderId = request.getParameter("orderId");
+		String status = request.getParameter("statusSelect");
+		User loginUser = (User) request.getSession().getAttribute("loginUser");
+		List<Order> orderList = os.findMyOrder(pageBean, orderId, status,
+				loginUser.getUserId());
+		String orderListJson = os.getOrderListJson(orderList);
+		// 需要返回的数据有总记录数和行数据
+		String json = "{\"total\":" + pageBean.getTotalRow() + ",\"rows\":"
+				+ orderListJson + "}";
+		return json;
+	}
+
+	/**
+	 * 获取店铺的订单
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getShopOrder(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Page pageBean = CommonUtil
+				.toBean(request.getParameterMap(), Page.class);
+		// 获取查询的订单Id
+		String orderId = request.getParameter("orderId");
+		String status = request.getParameter("statusSelect");
+		User loginUser = (User) request.getSession().getAttribute("loginUser");
+		List<Order> orderList = os.findShopOrder(pageBean, orderId, status,
+				loginUser.getUserId());
+		String orderListJson = os.getOrderListJson(orderList);
+		// 需要返回的数据有总记录数和行数据
+		String json = "{\"total\":" + pageBean.getTotalRow() + ",\"rows\":"
+				+ orderListJson + "}";
+		return json;
+	}
 	/**
 	 * 生成订单
 	 * 

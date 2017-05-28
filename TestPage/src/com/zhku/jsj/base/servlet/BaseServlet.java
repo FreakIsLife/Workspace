@@ -26,6 +26,9 @@ public class BaseServlet extends HttpServlet {
 		 * 1. 获取method参数，它是用户想调用的方法 2. 把方法名称变成Method类的实例对象 3. 通过invoke()来调用这个方法
 		 */
 		String methodName = request.getParameter("method");
+		if ("".equals(methodName) || methodName == null) {
+			methodName = (String) request.getAttribute("method");
+		}
 		Method method = null;
 		/**
 		 * 2. 通过方法名称获取Method对象
