@@ -3,9 +3,11 @@ package com.zhku.jsj.base.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+
 
 import com.zhku.jsj.shop.dao.ShopDao;
 import com.zhku.jsj.shop.domain.Shop;
@@ -34,6 +36,8 @@ public class ShopDaoImpl implements ShopDao {
 		sql += ")";
 		return qr.query(sql, new BeanListHandler<Shop>(Shop.class), shopId);
 	}
+<<<<<<< HEAD
+=======
 
 	@Override
 	public Shop findOneById(String shopId) throws SQLException {
@@ -49,4 +53,5 @@ public class ShopDaoImpl implements ShopDao {
 		qr.update(sql, params);
 	}
 
+>>>>>>> refs/remotes/origin/master
 }

@@ -1,7 +1,9 @@
 package com.zhku.jsj.user.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.zhku.jsj.admin.dao.AdminDao;
 import com.zhku.jsj.base.dao.factory.DaoFactory;
 import com.zhku.jsj.shop.dao.ShopDao;
 import com.zhku.jsj.shop.domain.Shop;
@@ -18,7 +20,7 @@ import com.zhku.jsj.utils.jdbc.JdbcUtils;
 public class UserService {
 	private UserDao ud = DaoFactory.getInstance().createDao(UserDao.class);
 	private ShopDao sd = DaoFactory.getInstance().createDao(ShopDao.class);
-
+	private AdminDao ad = DaoFactory.getInstance().createDao(AdminDao.class);
 	/**
 	 * 调用findOneUser查看数据是否存在该用户 如果存在则返回该用户的UserBean，不存在就返回null
 	 * 
@@ -96,6 +98,34 @@ public class UserService {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * 加载用户信息
+	 * 
+	 * @param bid
+	 * @return
+	 */
+	public List<User> load() {
+		try {
+			return ud.load();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 删除用户信息
+	 * 
+	 * @param userId
+	 */
+	public void deleteUser(String userId) {
+		try {
+			ad.deleteShop(userId);
+			ud.deleteUser(userId);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+=======
 	 * 修改密码
 	 * 
 	 * @param userId
@@ -107,5 +137,6 @@ public class UserService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+>>>>>>> refs/remotes/origin/master
 	}
 }
