@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+/*
+	截断字符串，加上style-maxwidth
+ */
+.cut {
+	display: block;
+	margin: 0 auto;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.form-file input[type=file] {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100px;
+	height: 100px;
+	cursor: pointer;
+	opacity: 0;
+}
+
+/*
+	覆盖modal父类css，防止弹出modal 导航栏移位
+*/
+.modal-open {
+	overflow: initial !important;
+}
+
+body.modal-open {
+	overflow-y: auto !important;
+	padding-right: 0 !important;
+}
