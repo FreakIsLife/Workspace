@@ -23,13 +23,13 @@
 					</a>
 				</li>
 			</ul>
-			<form role="search" class="navbar-form navbar-left" action="#"
-				method="post">
+			<form role="search" class="navbar-form navbar-left">
 				<div class="form-group">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search" />
+						<input type="text" class="form-control" placeholder="Search"
+							id="productName" />
 						<span class="input-group-btn">
-							<button class="btn" type="submit">
+							<button class="btn searchBtn" type="submit">
 								<span class="glyphicon glyphicon-search"></span>
 								搜索
 							</button>
@@ -50,8 +50,8 @@
 						</li>
 					</c:if>
 					<li id="cart">
-						<a href="#" role="button" aria-haspopup="true"
-							aria-expanded="false"
+						<a href='<c:url value="/user/myCart.jsp"></c:url>' role="button"
+							aria-haspopup="true" aria-expanded="false"
 							data-content='
 								<table class="table" style="width:300px;margin-bottom:0;">
 								<tbody>
@@ -317,3 +317,18 @@
 <!-- 注销结束 -->
 <!-- #模态框END# -->
 <script src='<c:url value="/js/header.js"></c:url>'></script>
+<script>
+	$('.searchBtn').click(function(e) {
+		e.preventDefault();
+		var productName = encodeURI($('#productName').val());
+		$.pjax({
+			cache : false, // 上传文件不需要缓存
+			url : ctx + '/page/search.jsp',
+			data : {
+				"searchName" : productName,
+			},
+			type : 'post',
+			container : '#flush'
+		})
+	})
+</script>

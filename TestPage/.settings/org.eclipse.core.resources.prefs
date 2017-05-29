@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 encoding//WebRoot/page/productIntro.jsp=UTF-8
+=======
+eclipse.preferences.version=1
+encoding//WebRoot/user/changePassword.jsp=UTF-8
+>>>>>>> refs/remotes/origin/lcr

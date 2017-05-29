@@ -9,7 +9,8 @@ import com.zhku.jsj.utils.common.PicUtils;
 
 public class FileItemUtil {
 
-	public static String doFileUpload(HttpServletRequest request, String type) {
+	public static String doFileUpload(HttpServletRequest request, String type,
+			int x, int y) {
 		try {
 			Part part = request.getPart(type);
 			String fileName = part.getSubmittedFileName();
@@ -46,7 +47,7 @@ public class FileItemUtil {
 			// 生成一个小图片 保存 到 原 文件同样的文件夹 下
 			// 返回 文件 跟 系统相关的 一个 实际的 路径
 			PicUtils pic = new PicUtils(file.getCanonicalPath());
-			pic.resize(100, 100);
+			pic.resize(x, y);
 			// 返回图片存放的相对路径
 			return imageurl + "/" + uuidname;
 		} catch (Exception e) {

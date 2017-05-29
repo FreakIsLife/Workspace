@@ -84,7 +84,7 @@
 					<span class="input-group-addon">^_^</span>
 					<input type="text" class="form-control" placeholder="请选择你的生日"
 						readonly="readonly"
-						value='<fmt:formatDate value="${loginUser.userBirth }" type="both" pattern="yyyy-mm-dd"/>'>
+						value='<fmt:formatDate value="${loginUser.userBirth }" type="both" pattern="yyyy-MM-dd"/>'>
 
 					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-remove"></span>
@@ -93,7 +93,7 @@
 						<span class="glyphicon glyphicon-calendar"></span>
 					</span>
 					<input type="hidden" id="userBirth" name="userBirth"
-						value='<fmt:formatDate value="${loginUser.userBirth }" type="both" pattern="yyyy-mm-dd"/>' />
+						value='<fmt:formatDate value="${loginUser.userBirth }" type="both" pattern="yyyy-MM-dd"/>' />
 
 				</div>
 			</div>

@@ -32,6 +32,33 @@ public class UserServlet extends BaseServlet {
 	private UserService us = new UserService();
 
 	/**
+	 * 修改密码
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String changePwd(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		User loginUser = (User) request.getSession().getAttribute("loginUser");
+		String oldPassword = request.getParameter("oldPassword");
+		if (!loginUser.getUserPassword().equals(oldPassword)) {
+			return "旧密码错误！";
+		}
+		String newPassword = request.getParameter("newPassword");
+		String rnewPassword = request.getParameter("rnewPassword");
+		if ("".equals(newPassword) || "".equals(rnewPassword)) {
+			return "请填写完整信息！";
+		} else if (!newPassword.equals(rnewPassword)) {
+			return "两次密码不一致";
+		}
+		us.changePassword(loginUser.getUserId(), newPassword);
+		return null;
+	}
+
+	/**
 	 * 开启用户的店铺
 	 * 
 	 * @param request
@@ -72,22 +99,23 @@ public class UserServlet extends BaseServlet {
 	public String saveInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		User bean = CommonUtil.toBean(request.getParameterMap(), User.class);
-		String filePath = FileItemUtil.doFileUpload(request, "userImg");
+		String filePath = FileItemUtil.doFileUpload(request, "userImg", 100,
+				100);
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		String userImg = loginUser.getUserImg();
-		if(userImg==null) {
-			//用户没有头像，用上传头像更新
+		if (userImg == null) {
+			// 用户没有头像，用上传头像更新
 			bean.setUserImg(filePath);
-		} else if("".equals(filePath)) {
+		} else if ("".equals(filePath)) {
 			// 用户有头像，但没有上传头像
 			bean.setUserImg(userImg);
-		} else if(!userImg.equals(filePath)) {
-			//用户有旧头像和上传头像而且两个路径不一样
+		} else if (!userImg.equals(filePath)) {
+			// 用户有旧头像和上传头像而且两个路径不一样
 			bean.setUserImg(filePath);
 			FileItemUtil.deleteOldImg(request, userImg);
-		} else{
-			//用户没有更改头像
+		} else {
+			// 用户没有更改头像
 			bean.setUserImg(userImg);
 		}
 		bean.setUserPassword(loginUser.getUserPassword());
@@ -135,8 +163,12 @@ public class UserServlet extends BaseServlet {
 	}
 
 	/**
-	 * 注册servlet 1.在注册前已经用ajax异步校验过用户名 2.将request表单数据封装成bean 3.调用service进行注册
-	 * 4.将注册用户当做登录用户存放到session然后浏览器刷新页面
+	 * 注册servlet
+	 * 
+	 * @1. 在注册前已经用ajax异步校验过用户名
+	 * @2. 将request表单数据封装成bean
+	 * @3. 调用service进行注册
+	 * @4. 将注册用户当做登录用户存放到session然后浏览器刷新页面
 	 * 
 	 * @param request
 	 * @param response

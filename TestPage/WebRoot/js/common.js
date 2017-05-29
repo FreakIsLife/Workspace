@@ -138,37 +138,23 @@ $(function() {
 	/**
 	 * ajax刷新div
 	 */
-	/*$(document).on('click', '.flushPage', function(event) {
-		event.preventDefault();
-		var url = $(this).attr('href');
-		var data = {
-			type : 1
-		};
-		$.ajax({
-			type : "get",
-			async : true, // 异步请求
-			url : url,
-			data : data,
-			timeout : 1000,
-			success : function(dates) {
-				window.history.pushState(null, null, url); // 改变URL和添加返回历史
-				document.title = data.title; // 设置标题
-				$(".flush").html(dates);// 要刷新的div
-			},
-			error : function() {
-				toastr.error("连接超时失败，请稍后再试！");
-			}
-		});
-	});*/
+	/*
+	 * $(document).on('click', '.flushPage', function(event) {
+	 * event.preventDefault(); var url = $(this).attr('href'); var data = { type :
+	 * 1 }; $.ajax({ type : "get", async : true, // 异步请求 url : url, data : data,
+	 * timeout : 1000, success : function(dates) {
+	 * window.history.pushState(null, null, url); // 改变URL和添加返回历史 document.title =
+	 * data.title; // 设置标题 $(".flush").html(dates);// 要刷新的div }, error :
+	 * function() { toastr.error("连接超时失败，请稍后再试！"); } }); });
+	 */
 	/**
-	 * pjax 
-	 * 可回退页面
+	 * pjax 可回退页面
 	 */
 	$(document).pjax('.flushPage', '#flush');
-	$(window).on('popstate', function(){
+	$(window).on('popstate', function() {
 		$.pjax.reload('#flush');
 	});
-	function PjaxreLoad(loadPage){
+	function PjaxreLoad(loadPage) {
 		$.pjax.reload('#' + loadPage);
 	}
 	/**
@@ -246,7 +232,7 @@ $(function() {
 					/* $submitError.text(msg); */
 					toastr.error(msg);
 				} else {
-					location.reload();
+					location.href = ctx + '/page/home.jsp';
 				}
 			},
 			error : function() {
@@ -257,7 +243,8 @@ $(function() {
 	/**
 	 * usual的ajax提交
 	 */
-	$(document).on('click', '.usualSubmitBtn', function() {
+	$(document).on('click', '.usualSubmitBtn', function(e) {
+		e.preventDefault();
 		toastr.info("保存数据中...");
 		var $submitForm = $($(this).parents('form'));
 		var Form = $submitForm[0];
@@ -277,8 +264,11 @@ $(function() {
 				} else {
 					toastr.success("保存成功！");
 					// 重新加载 还在当前页面,ajax重新局部刷新？？待解决
-					setInterval(function(){location.reload();},3000);
-					/*history.go(-1);*/
+					setTimeout(function() {
+						clearTimeout();
+						$.pjax.reload('#flush');
+					}, 2000);
+					/* history.go(-1); */
 				}
 			},
 			error : function() {
@@ -289,7 +279,8 @@ $(function() {
 	/**
 	 * 当模态框退出时，清空内部表单
 	 */
-	$('.modalControl').on('hide.bs.modal', function() {
+	$(document).on('hide.bs.modal', '.modalControl', function() {
+		/* $('.modalControl').on('hide.bs.modal', function() { */
 		$(this).find("form").formValidation('resetForm', true);
 	});
 });

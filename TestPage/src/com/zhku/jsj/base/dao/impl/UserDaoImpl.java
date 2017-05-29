@@ -1,9 +1,11 @@
 package com.zhku.jsj.base.dao.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.zhku.jsj.user.dao.UserDao;
@@ -53,4 +55,24 @@ public class UserDaoImpl implements UserDao {
 		qr.update(sql, userId);
 	}
 
+<<<<<<< HEAD
+	public List<User> load() throws SQLException{
+		String sql = "SELECT * FROM user_info";
+		return qr.query(sql,new BeanListHandler<User>(User.class));
+	}
+	
+	public void deleteUser(String userId)throws SQLException{
+		String sql="delete from user_info where userId=?";
+		qr.update(sql, userId);
+	}
+=======
+	@Override
+	public void updatePassword(String userId, String password)
+			throws SQLException {
+		String sql = "update user_info set userPassword=? where userId=?";
+		Object[] params = { password, userId };
+		qr.update(sql, params);
+	}
+
+>>>>>>> refs/remotes/origin/master
 }

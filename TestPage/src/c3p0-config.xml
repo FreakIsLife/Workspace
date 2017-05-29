@@ -9,7 +9,11 @@
 		</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="user">root</property>
+<<<<<<< HEAD
 		<property name="password">141591</property>
+=======
+		<property name="password"></property>
+>>>>>>> refs/remotes/origin/lcr
 
 		<property name="acquireIncrement">3</property>
 		<property name="initialPoolSize">10</property>

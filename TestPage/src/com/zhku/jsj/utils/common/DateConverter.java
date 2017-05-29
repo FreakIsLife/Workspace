@@ -11,7 +11,7 @@ public class DateConverter implements Converter {
 	@Override
 	public Object convert(Class type, Object value) {
 		// 如果要转换成值为null，那么直接返回null
-		if (value == null)
+		if (value == null || "".equals(value))
 			return null;
 		// 如果要转换的值不是String，那么就不转换了，直接返回
 		if (!(value instanceof String)) {
@@ -19,7 +19,9 @@ public class DateConverter implements Converter {
 		}
 		String val = (String) value;// 把值转换成String
 		// 使用SimpleDateFormat进行转换
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		if (val == null || "".equals(val))
+			return null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			return sdf.parse(val);
 		} catch (ParseException e) {
