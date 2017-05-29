@@ -98,6 +98,7 @@ public class UserService {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * 加载用户信息
 	 * 
 	 * @param bid
@@ -124,6 +125,7 @@ public class UserService {
 			throw new RuntimeException(e);
 		}
 
+=======
 	 * 修改密码
 	 * 
 	 * @param userId
@@ -135,5 +137,6 @@ public class UserService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+>>>>>>> refs/remotes/origin/master
 	}
 }

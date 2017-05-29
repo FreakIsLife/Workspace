@@ -55,6 +55,7 @@ public class UserDaoImpl implements UserDao {
 		qr.update(sql, userId);
 	}
 
+<<<<<<< HEAD
 	public List<User> load() throws SQLException{
 		String sql = "SELECT * FROM user_info";
 		return qr.query(sql,new BeanListHandler<User>(User.class));
@@ -64,6 +65,7 @@ public class UserDaoImpl implements UserDao {
 		String sql="delete from user_info where userId=?";
 		qr.update(sql, userId);
 	}
+=======
 	@Override
 	public void updatePassword(String userId, String password)
 			throws SQLException {
@@ -72,4 +74,5 @@ public class UserDaoImpl implements UserDao {
 		qr.update(sql, params);
 	}
 
+>>>>>>> refs/remotes/origin/master
 }
