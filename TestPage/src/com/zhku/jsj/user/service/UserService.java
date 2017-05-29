@@ -124,5 +124,16 @@ public class UserService {
 			throw new RuntimeException(e);
 		}
 
+	 * 修改密码
+	 * 
+	 * @param userId
+	 * @param newPassword
+	 */
+	public void changePassword(String userId, String newPassword) {
+		try {
+			ud.updatePassword(userId, newPassword);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

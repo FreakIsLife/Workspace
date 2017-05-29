@@ -22,36 +22,36 @@
 		<a class="navbar-brand" href="#">订单表</a>
 	</div>
 	<div class="collapse navbar-collapse" id="bs-navbar-collapse-order">
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav" id="statusSelect">
 			<li class="active" data-toggle="tab">
-				<a href="#">全部订单</a>
+				<a href="#" data-status="all">全部订单</a>
 			</li>
 			<li data-toggle="tab">
-				<a href="#" >待付款</a>
+				<a href="#" data-status="pay">待付款</a>
 			</li>
 			<li data-toggle="tab">
-				<a href="#">待发货</a>
+				<a href="#" data-status="send">待发货</a>
 			</li>
 			<li data-toggle="tab">
-				<a href="#">待确认</a>
+				<a href="#" data-status="certain">待确认</a>
 			</li>
 			<li data-toggle="tab">
-				<a href="#">交易成功</a>
+				<a href="#" data-status="success">交易成功</a>
 			</li>
 			<li data-toggle="tab">
-				<a href="#">已取消</a>
+				<a href="#" data-status="cancel">已取消</a>
 			</li>
 		</ul>
 		<form class="navbar-form navbar-right" role="search">
 			<div class="form-group">
-				<input type="text" class="form-control" />
+				<input type="text" class="form-control" id="text_search" />
 			</div>
-			<button type="submit" class="btn btn-default">查询订单</button>
+			<button class="btn btn-default" id="btn_query">查询订单</button>
 		</form>
 	</div>
 </nav>
 <table id="tb_myOrder"
-	data-classes="table table-no-bordered table-hover"></table>
+	data-classes="table table-condensed table-no-bordered table-hover"></table>
 <script>
 	$(function() {
 
@@ -80,11 +80,14 @@
 								cache : false,
 								striped : true,
 								pagination : true,
+								sortOrder : "asc", //排序方式
+								uniqueId : "orderId", //每一行的唯一标识，一般为主键列
 								queryParams : oTableInit.queryParams,
 								queryParamsType : "limit",
 								detailView : true,//父子表
 								sidePagination : "server",
-								pageSize : 10,
+								pageNumber : 1, //初始化加载第一页，默认第一页
+								pageSize : 5, //每页的记录行数（*）
 								pageList : [ 5, 10, 25, 50 ],
 								minimumCountColumns : 2,
 								clickToSelect : true,
@@ -93,35 +96,62 @@
 									oTableInit
 											.InitSubTable(index, row, $detail);
 								},
+								rowStyle : function(row, index) {
+									//这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
+									var strclass = "";
+									if (row.orderStatus == "1") {//待付款
+										strclass = 'info';
+									} else if (row.orderStatus == "2") {//待发货
+										strclass = 'active';
+									} else if (row.orderStatus == "3") {//待确认
+										strclass = 'warning';
+									} else if (row.orderStatus == "4") {//交易成功
+										strclass = 'success';
+									} else if (row.orderStatus == "5") {//已取消
+										strclass = 'danger';
+									} else {
+										return {};
+									}
+									return {
+										classes : strclass
+									}
+								},
 								columns : [
-										{
-											checkbox : true
-										},
 										{
 											field : 'orderId',
 											title : '订单号',
-											width : '20%',
+											width : '10%',
 											align : 'center',
-											valign : 'middle'
+											valign : 'middle',
+											formatter : function(value, row,
+													index) {
+												var strAddress = '<lable class="cut" title="' + value + '">'
+														+ value + '</lable>'
+												return strAddress;
+											}
 										},
 										{
 											field : 'orderTime',
 											title : '下单时间',
-											width : '10%',
 											align : 'center',
 											valign : 'middle'
 										},
 										{
 											field : 'orderAddress',
 											title : '下单地址',
-											width : '50%',
+											width : '30%',
 											align : 'center',
-											valign : 'middle'
+											valign : 'middle',
+											formatter : function(value, row,
+													index) {
+												var strAddress = '<lable class="cut" style="width:200px;" title="' + value + '">'
+														+ value + '</lable>'
+												return strAddress;
+											}
 										},
 										{
 											field : 'orderTotal',
 											title : '总价',
-											width : '10%',
 											align : 'center',
 											valign : 'middle',
 											formatter : function(value, row,
@@ -135,14 +165,24 @@
 										}, {
 											field : 'orderStatus',
 											title : '状态',
-											width : '10%',
 											align : 'center',
 											valign : 'middle',
-											events : StatusEvents,
 											formatter : StatusFormatter
-										}, ],
+										}, {
+											field : 'operator',
+											title : '操作',
+											align : 'center',
+											valign : 'middle',
+											events : operatorEvents,
+											formatter : operatorFormatter
+										} ],
+								onAll : function() {
+									$(".detail-icon").parent().css({
+										'text-align' : 'center',
+										'vertical-align' : 'middle'
+									});
+								}
 							});
-
 		};
 
 		//得到查询的参数
@@ -150,55 +190,188 @@
 			var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 				limit : params.limit, //页面大小
 				offset : params.offset, //页码
-				rolename : $("#txt_search_rolename").val(),
-				desc : $("#txt_search_desc").val(),
-				filter : params.filter
+				order : params.order,
+				ordername : params.sort,
+				orderId : $("#text_search").val(),
+				statusSelect : $("#statusSelect").find('.active a').data(
+						'status')
 			};
 			return temp;
+		};
+		function StatusFormatter(value, row, index) {
+			var strStatus = "";
+			if (value == "1") {//待付款
+				strStatus = '待付款';
+			} else if (value == "2") {//待发货
+				strStatus = '待发货';
+			} else if (value == "3") {//待确认
+				strStatus = '待确认';
+			} else if (value == "4") {//交易成功
+				strStatus = '交易成功';
+			} else if (value == "5") {//已取消
+				strStatus = '已取消';
+			}
+			return '<lable class="text-muted">' + strStatus + '</lable>';
+		}
+		;
+		function operatorFormatter(value, row, index) {
+			var cancel = "";
+			if(row.orderStatus == "4"){
+				cancel = '<lable class="text-success"><a class="cancel" href="javascript:void(0)" title="售后评价">售后评价</a></lable>';
+			} else if (row.orderStatus != "5") {
+				cancel = '<lable class="text-danger"><a class="cancel" href="javascript:void(0)" title="取消订单">取消订单</a></lable>';
+			}
+			var btnStatus = "";
+			if (row.orderStatus == "1") {
+				btnStatus = '<button class="btn btn-default pay">立即支付</button>';
+			} else if (row.orderStatus == "3") {
+				btnStatus = '<button class="btn btn-default certain">立即确认</button>';
+			}
+			return [ cancel, '<br/>', btnStatus ].join('');
+		}
+		;
+		window.operatorEvents = {
+			'click .pay' : function(e, value, row, index) {
+				var orderId = row.orderId;
+				var orderStatus = "send";
+				$.ajax({
+					cache : false, // 上传文件不需要缓存
+					url : ctx + '/orderServlet?method=updateStatus',
+					data : {
+						"orderId" : orderId,
+						"status" : orderStatus
+					},
+					type : 'post',
+					dataType : 'text',
+					success : function(msg) {
+						if (msg.length > 0) {
+							toastr.error(msg);
+						} else {
+							toastr.success("支付成功！");
+							$('#tb_myOrder').bootstrapTable('refresh');
+						}
+					},
+					error : function() {
+						toastr.error("连接超时失败，请稍后再试！");
+					}
+				});
+			},
+			'click .certain' : function(e, value, row, index) {
+				var orderId = row.orderId;
+				var orderStatus = "success";
+				$.ajax({
+					cache : false, // 上传文件不需要缓存
+					url : ctx + '/orderServlet?method=updateStatus',
+					data : {
+						"orderId" : orderId,
+						"status" : orderStatus
+					},
+					type : 'post',
+					dataType : 'text',
+					success : function(msg) {
+						if (msg.length > 0) {
+							toastr.error(msg);
+						} else {
+							toastr.success("交易成功！");
+							$('#tb_myOrder').bootstrapTable('refresh');
+						}
+					},
+					error : function() {
+						toastr.error("连接超时失败，请稍后再试！");
+					}
+				});
+			},
+			'click .cancel' : function(e, value, row, index) {
+				var orderId = row.orderId;
+				var orderStatus = "cancel";
+				$.ajax({
+					cache : false, // 上传文件不需要缓存
+					url : ctx + '/orderServlet?method=updateStatus',
+					data : {
+						"orderId" : orderId,
+						"status" : orderStatus
+					},
+					type : 'post',
+					dataType : 'text',
+					success : function(msg) {
+						if (msg.length > 0) {
+							toastr.error(msg);
+						} else {
+							toastr.success("成功取消！");
+							$('#tb_myOrder').bootstrapTable('refresh');
+						}
+					},
+					error : function() {
+						toastr.error("连接超时失败，请稍后再试！");
+					}
+				});
+			}
 		};
 
 		//初始化子表格(无线循环)
 		oTableInit.InitSubTable = function(index, row, $detail) {
-			var parentid = row.MENU_ID;
-			var cur_table = $detail.html('<table></table>').find('table');
+			var parentid = row.orderId;
+			var cur_table = $detail
+					.html(
+							'<table data-classes="table table-condensed table-no-bordered"></table>')
+					.find('table');
 			$(cur_table).bootstrapTable({
-				url : '/Role/GetRole',
-				method : 'get',
+				url : ctx + '/orderServlet?method=getOrderItem',
+				method : 'post',
+				contentType : "application/x-www-form-urlencoded", //post方式必须（*）
 				striped : true,
 				cache : false,
-				pagination : true,
-				sortable : true,
-				detailView : true,//父子表
-				sidePagination : "server",
+				pagination : false,
+				sortable : false,
+				detailView : false,//父子表
+				queryParams : {
+					orderId : parentid
+				},
+				ajaxOptions : {
+					orderId : parentid
+				},
+				/* sidePagination : "server",
 				pageSize : 5,
-				pageList : [ 10, 25, 50, 100 ],
+				pageList : [ 10, 25, 50, 100 ], */
 				columns : [ {
-					checkbox : true
+					field : 'itemImg',
+					title : '商品图片',
+					align : 'center',
+					formatter : function(value, row, index) {
+						var tmp = value.split('.');
+						tmp[tmp.length - 1] = '_small.' + tmp[tmp.length - 1];
+						var smpic = tmp.join('');
+						return '<img src='+smpic+' class="img-rounded" >';
+					}
 				}, {
-					field : 'ROLE_NAME',
-					title : '角色名称'
+					field : 'itemName',
+					title : '名称',
+					align : 'center',
+					valign : 'middle'
 				}, {
-					field : 'DESCRIPTION',
-					title : '角色描述'
+					field : 'itemPrice',
+					title : '单价',
+					align : 'center',
+					valign : 'middle'
 				}, {
-					field : 'CREATETIME',
-					title : '创建日期'
+					field : 'itemNum',
+					title : '数量',
+					align : 'center',
+					valign : 'middle'
 				}, {
-					field : 'MODIFYTIME',
-					title : '修改日期'
-				}, {
-					field : 'ROLE_DEFAULTURL',
-					title : '默认页面'
+					field : 'itemTotal',
+					title : '总计',
+					width : '10%',
+					align : 'center',
+					valign : 'middle'
 				}, ],
-				//无线循环取子表，直到子表里面没有记录
-				onExpandRow : function(index, row, $Subdetail) {
-					oTableInit.InitSubTable(index, row, $Subdetail);
-				}
+			/* //无线循环取子表，直到子表里面没有记录
+			onExpandRow : function(index, row, $Subdetail) {
+				oTableInit.InitSubTable(index, row, $Subdetail);
+			} */
 			});
 		};
-
 		return oTableInit;
-
 	};
 
 	var ButtonInit = function() {
@@ -209,287 +382,18 @@
 		var arrmenuid = [];
 
 		oInit.Init = function() {
-			//新增数据click事件注册
-			$("#btn_add").click(function() {
-				$("#myModalLabel").text("新增");
-				$("#myModal").find(".form-control").val("");
-				$('#myModal').modal();
-
-				postdata.ROLE_ID = "";
-			});
-
-			//编辑数据click事件注册
-			$("#btn_edit").click(
-					function() {
-						var arrselections = $("#tb_roles").bootstrapTable(
-								'getSelections');
-						if (arrselections.length > 1) {
-							toastr.warning('只能选择一行进行编辑');
-
-							return;
-						}
-						if (arrselections.length <= 0) {
-							toastr.warning('请选择有效数据');
-							return;
-						}
-						$("#myModalLabel").text("编辑");
-						$("#txt_rolename").val(arrselections[0].ROLE_NAME);
-						$("#txt_roledesc").val(arrselections[0].DESCRIPTION);
-						$("#txt_defaulturl").val(
-								arrselections[0].ROLE_DEFAULTURL);
-						$("#txt_defaulturl_Web").val(
-								arrselections[0].ROLE_DEFAULTURL_WEB);
-
-						postdata.ROLE_ID = arrselections[0].ROLE_ID;
-						$('#myModal').modal();
-					});
-
-			//删除数据click事件注册
-			$("#btn_delete").click(
-					function() {
-						var arrselections = $("#tb_roles").bootstrapTable(
-								'getSelections');
-						if (arrselections.length <= 0) {
-							toastr.warning('请选择有效数据');
-							return;
-						}
-
-						Ewin.confirm({
-							message : "确认要删除选择的数据吗？"
-						}).on(
-								function(e) {
-									if (!e) {
-										return;
-									}
-									$.ajax({
-										type : "post",
-										url : "/Role/Delete",
-										data : {
-											"" : JSON.stringify(arrselections)
-										},
-										success : function(data, status) {
-											if (status == "success") {
-												toastr.success('提交数据成功');
-												$("#tb_roles").bootstrapTable(
-														'refresh');
-											}
-										},
-										error : function() {
-											toastr.error('Error');
-										},
-										complete : function() {
-
-										}
-
-									});
-								});
-					});
-
-			//保存编辑数据click事件注册
-			$("#btn_submit").click(function() {
-				postdata.ROLE_NAME = $("#txt_rolename").val();
-				postdata.DESCRIPTION = $("#txt_roledesc").val();
-				postdata.ROLE_DEFAULTURL = $("#txt_defaulturl").val();
-				postdata.ROLE_DEFAULTURL_WEB = $("#txt_defaulturl_Web").val();
-				$.ajax({
-					type : "post",
-					url : "/Role/GetEdit",
-					data : {
-						"" : JSON.stringify(postdata)
-					},
-					//contentType: "application/json; charset=utf-8",
-					//dataType: "json",
-					success : function(data, status) {
-						if (status == "success") {
-							toastr.success('提交数据成功');
-							$("#tb_roles").bootstrapTable('refresh');
-						}
-					},
-					error : function() {
-						toastr.error('Error');
-					},
-					complete : function() {
-
-					}
-
-				});
-			});
-
 			//条件查询click事件注册
-			$("#btn_query").click(function() {
-				$("#tb_roles").bootstrapTable('refresh');
+			$("#btn_query").click(function(e) {
+				e.preventDefault();
+				$("#tb_myOrder").bootstrapTable('refresh');
 			});
-
-			//设置权限click事件注册
-			$("#btn_powerset").click(
-					function() {
-						var arrselections = $("#tb_roles").bootstrapTable(
-								'getSelections');
-						if (arrselections.length > 1) {
-							toastr.warning('只能选择一行设置权限');
-							return;
-						}
-						if (arrselections.length <= 0) {
-							toastr.warning('请选择有效数据');
-							return;
-						}
-
-						strrole_id = arrselections[0].ROLE_ID;
-						$("#myModalLabel_powerset").text(
-								"设置" + arrselections[0].ROLE_NAME + "菜单权限");
-						$("#tb_powerset").bootstrapTable("destroy");//先destroy掉表格再重新加载
-						$("#tb_powerset").bootstrapTable({
-							url : '/Role/GetParentMenu',
-							method : 'get',
-							detailView : true,//父子表
-							//sidePagination: "server",
-							pageSize : 10,
-							pageList : [ 10, 25 ],
-							columns : [ {
-								field : 'MENU_NAME',
-								title : '菜单名称'
-							}, {
-								field : 'MENU_URL',
-								title : '菜单URL'
-							}, {
-								field : 'PARENT_ID',
-								title : '父级菜单'
-							}, {
-								field : 'MENU_LEVEL',
-								title : '菜单级别'
-							}, ],
-							onLoadSuccess : function(data) {
-
-							},
-							onExpandRow : function(index, row, $detail) {
-								oInit.InitSubTable(index, row, $detail);
-							}
-						});
-
-						$('#myModal_powerset').modal();
-					});
-
-			//角色设置功能保存按钮click事件注册
-			$("#btn_submit_powerset").click(function() {
-				//var arr_selected_menu = [];
-				//for (var i = 0; i < arrsubmenutable.length; i++) {
-				//    //如果对应的子表不存在
-				//    if ($(arrsubmenutable[i]).length <= 0) {
-				//        continue;
-				//    }
-				//    var arrtr = $(arrsubmenutable[i]).find('tr[class=selected]');
-				//    for (var j = 0; j < arrtr.length; j++) {
-				//        arr_selected_menu.push($(arrsubmenutable[i]).bootstrapTable("getRowByUniqueId", $(arrtr[j]).attr("data-uniqueid")));
-				//    }
-
-				//}
-
-				$.ajax({
-					type : "post",
-					url : "/Role/PowerSet",
-					data : {
-						strRoleID : strrole_id,
-						str_Selected_MenuId : arrmenuid.join(",")
-					},
-					dataType : "json",
-					success : function(data, status) {
-						if (status == "success") {
-							toastr.success('设置权限成功');
-						}
-					},
-					error : function() {
-						toastr.error('Error');
-					},
-					complete : function() {
-
-					}
-
-				});
+			$("#statusSelect a").click(function(e) {
+				e.preventDefault();
+				setTimeout(function() {
+					$("#tb_myOrder").bootstrapTable('refresh');
+				}, 100);
 			});
 		};
-
-		//初始化子表格(无线循环)
-		oInit.InitSubTable = function(index, row, $detail) {
-			var parentid = row.MENU_ID;
-			var cur_table = $detail.html('<table></table>').find('table');
-			//arrsubmenutable.push(cur_table);
-			$(cur_table).bootstrapTable(
-					{
-						url : '/Role/GetChildrenMenu',
-						method : 'get',
-						queryParams : {
-							strParentID : parentid
-						},
-						ajaxOptions : {
-							strParentID : parentid
-						},
-						clickToSelect : true,
-						detailView : true,//父子表
-						uniqueId : "MENU_ID",
-						pageSize : 10,
-						pageList : [ 10, 25 ],
-						columns : [ {
-							checkbox : true
-						}, {
-							field : 'MENU_NAME',
-							title : '菜单名称'
-						}, {
-							field : 'MENU_URL',
-							title : '菜单URL'
-						}, {
-							field : 'PARENT_ID',
-							title : '父级菜单'
-						}, {
-							field : 'MENU_LEVEL',
-							title : '菜单级别'
-						}, ],
-						onCheck : function(row, $element) {
-							arrmenuid.push(row.MENU_ID);
-						},
-						onUncheck : function(row, $element) {
-							oInit.RemoveElement(row.MENU_ID);
-						},
-						onCheckAll : function(rows) {
-							for (var i = 0; i < rows.length; i++) {
-								arrmenuid.push(rows[i].MENU_ID);
-							}
-						},
-						onUncheckAll : function(rows) {
-							for (var i = 0; i < rows.length; i++) {
-								oInit.RemoveElement(rows[i].MENU_ID);
-							}
-						},
-						onLoadSuccess : function(data) {
-							//设置已有菜单权限的选中
-							var arrTr = $(cur_table).find("tr");
-							for (var i = 0; i < arrTr.length; i++) {
-								var menuid = $(arrTr[i]).attr("data-uniqueid");
-								var lstFind = Enumerable.From(arrmenuid).Where(
-										"x=>x=='" + menuid + "'").ToArray();
-								if (lstFind.length > 0) {
-									$(arrTr[i]).find("input[type=checkbox]")
-											.attr("checked", "checked");
-									$(arrTr[i]).addClass("selected");
-								}
-							}
-						},
-						onExpandRow : function(index, row, $Subdetail) {
-							oInit.InitSubTable(index, row, $Subdetail);
-						}
-					});
-		};
-
-		//递归删除数组中指定元素
-		oInit.RemoveElement = function(ele) {
-			var ele_index = arrmenuid.indexOf(ele);
-			if (ele_index > -1) {
-				arrmenuid.splice(ele_index, 1);
-				oInit.RemoveElement(ele);
-			} else {
-				return;
-			}
-		};
-
 		return oInit;
 	};
 

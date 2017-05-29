@@ -4,11 +4,11 @@
 <style type="text/css">
 body {
 	margin: 0px auto;
-	text-align: center;
+	
 }
 
 .error-block {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	top: 50%;
 	left: 50%;
@@ -25,7 +25,7 @@ p {
 </style>
 </head>
 
-<div class="error-block">
+<div class="error-block text-center">
 	<h3>操作成功！</h3>
 	<p>请选择下一步进行的操作：</p>
 	<p>

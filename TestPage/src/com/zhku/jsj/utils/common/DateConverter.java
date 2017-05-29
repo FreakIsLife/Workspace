@@ -21,7 +21,7 @@ public class DateConverter implements Converter {
 		// 使用SimpleDateFormat进行转换
 		if (val == null || "".equals(val))
 			return null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			return sdf.parse(val);
 		} catch (ParseException e) {

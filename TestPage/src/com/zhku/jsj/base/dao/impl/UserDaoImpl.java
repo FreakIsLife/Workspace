@@ -64,4 +64,12 @@ public class UserDaoImpl implements UserDao {
 		String sql="delete from user_info where userId=?";
 		qr.update(sql, userId);
 	}
+	@Override
+	public void updatePassword(String userId, String password)
+			throws SQLException {
+		String sql = "update user_info set userPassword=? where userId=?";
+		Object[] params = { password, userId };
+		qr.update(sql, params);
+	}
+
 }

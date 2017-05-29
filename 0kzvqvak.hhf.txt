@@ -1,0 +1,73 @@
+﻿Merge remote-tracking branch 'refs/remotes/origin/master' into lcr
+
+# Conflicts:
+#	TestPage/src/com/zhku/jsj/base/dao/impl/ShopDaoImpl.java
+#	TestPage/src/com/zhku/jsj/base/dao/impl/UserDaoImpl.java
+#	TestPage/src/com/zhku/jsj/user/dao/UserDao.java
+#	TestPage/src/com/zhku/jsj/user/service/UserService.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch lcr
+# Your branch is ahead of 'origin/lcr' by 7 commits.
+#   (use "git push" to publish your local commits)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   TestPage/.settings/com.genuitec.eclipse.core.prefs
+#	new file:   TestPage/.settings/org.eclipse.core.resources.prefs
+#	new file:   TestPage/WebRoot/WEB-INF/DeCorder.tld
+#	modified:   TestPage/WebRoot/css/common.css
+#	new file:   TestPage/WebRoot/images/1.jpg
+#	new file:   TestPage/WebRoot/images/2.jpg
+#	new file:   TestPage/WebRoot/images/3.jpg
+#	new file:   TestPage/WebRoot/images/4.jpg
+#	modified:   TestPage/WebRoot/js/common.js
+#	new file:   TestPage/WebRoot/js/distpicker/distpicker.js
+#	deleted:    TestPage/WebRoot/js/jquery.imagezoom.js
+#	new file:   TestPage/WebRoot/page/bookInfo.jsp
+#	new file:   TestPage/WebRoot/page/bookItro.jsp
+#	new file:   TestPage/WebRoot/page/bookList.jsp
+#	modified:   TestPage/WebRoot/page/header.jsp
+#	modified:   TestPage/WebRoot/page/navSider.jsp
+#	new file:   TestPage/WebRoot/page/search.jsp
+#	modified:   TestPage/WebRoot/page/showPage.jsp
+#	modified:   TestPage/WebRoot/shop/shopInfo.jsp
+#	modified:   TestPage/WebRoot/shop/shopOrder.jsp
+#	new file:   TestPage/WebRoot/shop/showShopInfo.jsp
+#	new file:   TestPage/WebRoot/user/changePassword.jsp
+#	modified:   TestPage/WebRoot/user/commitSuccess.jsp
+#	modified:   TestPage/WebRoot/user/information.jsp
+#	modified:   TestPage/WebRoot/user/myCart.jsp
+#	modified:   TestPage/WebRoot/user/myOrder.jsp
+#	modified:   TestPage/WebRoot/user/navSider.jsp
+#	modified:   TestPage/src/com/zhku/jsj/base/dao/impl/OrderDaoImpl.java
+#	modified:   TestPage/src/com/zhku/jsj/base/dao/impl/ProductDaoImpl.java
+#	modified:   TestPage/src/com/zhku/jsj/base/dao/impl/ShopDaoImpl.java
+#	modified:   TestPage/src/com/zhku/jsj/base/dao/impl/UserDaoImpl.java
+#	modified:   TestPage/src/com/zhku/jsj/base/servlet/BaseServlet.java
+#	modified:   TestPage/src/com/zhku/jsj/order/dao/OrderDao.java
+#	modified:   TestPage/src/com/zhku/jsj/order/domain/OrderItem.java
+#	modified:   TestPage/src/com/zhku/jsj/order/service/OrderService.java
+#	modified:   TestPage/src/com/zhku/jsj/order/servlet/OrderServlet.java
+#	modified:   TestPage/src/com/zhku/jsj/pager/Page.java
+#	modified:   TestPage/src/com/zhku/jsj/product/dao/ProductDao.java
+#	modified:   TestPage/src/com/zhku/jsj/product/service/ProductService.java
+#	modified:   TestPage/src/com/zhku/jsj/product/servlet/productServlet.java
+#	modified:   TestPage/src/com/zhku/jsj/shop/dao/ShopDao.java
+#	modified:   TestPage/src/com/zhku/jsj/shop/service/ShopService.java
+#	new file:   TestPage/src/com/zhku/jsj/shop/servlet/ShopServlet.java
+#	modified:   TestPage/src/com/zhku/jsj/user/dao/UserDao.java
+#	modified:   TestPage/src/com/zhku/jsj/user/service/UserService.java
+#	modified:   TestPage/src/com/zhku/jsj/user/servlet/UserServlet.java
+#	modified:   TestPage/src/com/zhku/jsj/utils/common/DateConverter.java
+#	new file:   TestPage/src/com/zhku/jsj/utils/common/DeCode.java
+#
+

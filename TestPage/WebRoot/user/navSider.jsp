@@ -18,9 +18,9 @@
 				</a>
 			</li>
 			<li data-toggle="tab">
-				<a id="setting" class="flushPage" href="#">
+				<a id="changePassword" class="flushPage" href='<c:url value="/user/changePassword.jsp"></c:url>'>
 					<span class="glyphicon glyphicon-share-alt"></span>
-					安全设置
+					修改密码
 				</a>
 			</li>
 			<li data-toggle="tab">
@@ -81,6 +81,12 @@
 						店铺首页
 					</a>
 				</li>
+				<li data-toggle="tab">
+					<a id="shopInfo" class="flushPage" href='<c:url value="/shop/shopInfo.jsp"></c:url>'>
+						<span class="glyphicon glyphicon-share-alt"></span>
+						店铺信息
+					</a>
+				</li>
 				<li class="active" data-toggle="tab">
 					<a id="shopProduct" class="flushPage" href='<c:url value="/shop/shopProduct.jsp"></c:url>'>
 						<span class="glyphicon glyphicon-share-alt"></span>
@@ -88,7 +94,7 @@
 					</a>
 				</li>
 				<li data-toggle="tab">
-					<a class="flushPage" href='<c:url value="/shop/shopOrder.jsp"></c:url>'>
+					<a id="shopOrder" class="flushPage" href='<c:url value="/shop/shopOrder.jsp"></c:url>'>
 						<span class="glyphicon glyphicon-share-alt"></span>
 						店铺订单
 					</a>

@@ -87,7 +87,7 @@
 				queryParams : oTableInit.queryParams,//传递参数（*）
 				sidePagination : "server", //分页方式：client客户端分页，server服务端分页（*）
 				pageNumber : 1, //初始化加载第一页，默认第一页
-				pageSize : 10, //每页的记录行数（*）
+				pageSize : 5, //每页的记录行数（*）
 				pageList : [ 5, 10, 25, 50 ], //可供选择的每页的行数（*）
 				search : false, //是否显示表格搜索，若true且为server分页则传递参数需要将search传递过去 */
 				strictSearch : true,

@@ -1,22 +1,27 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title>My JSP 'shopInfo.jsp' starting page</title>
-
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
-  </head>
-  
-  <body>
-    This is my JSP page. <br>
-  </body>
-</html>
+<script>
+	$(function() {
+		//初始化数据
+		var oInfo = new InfoInit();
+		oInfo.Init();
+	});
+	var InfoInit = function() {
+		var oInfoInit = new Object();
+		oInfoInit.Init = function() {
+			$.ajax({
+				cache : false, // 上传文件不需要缓存
+				url : ctx + '/shopServlet?method=getShopInfo',
+				data : '',
+				type : 'post',
+				dataType : 'text',
+				success : function(dates) {
+					$("#flush").html(dates);
+				},
+				error : function() {
+					toastr.error("连接超时失败，请稍后再试！");
+				}
+			})
+		}
+		return oInfoInit;
+	}
+</script>

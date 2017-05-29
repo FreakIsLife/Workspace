@@ -43,6 +43,7 @@ public interface UserDao {
 	/**
 	 * 设置用户状态是开店
 	 * 
+	 * @param userId
 	 * @throws SQLException
 	 */
 	void setShop(String userId) throws SQLException;
@@ -61,5 +62,11 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	void deleteUser(String userId) throws SQLException;
+	 * 更新账号的密码
+	 * @param userId
+	 * @param newPassword
+	 * @throws SQLException
+	 */
+	void updatePassword(String userId, String password) throws SQLException;
 
 }

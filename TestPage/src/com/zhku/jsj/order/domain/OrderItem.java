@@ -1,7 +1,7 @@
 package com.zhku.jsj.order.domain;
 
 public class OrderItem {
-	private String ItemId;
+	private String itemId;
 	private int itemNum;
 	private String itemProduct;
 	private String itemImg;
@@ -11,7 +11,7 @@ public class OrderItem {
 	private String itemOrder;
 
 	public String getItemId() {
-		return ItemId;
+		return itemId;
 	}
 
 	public int getItemNum() {
@@ -43,7 +43,7 @@ public class OrderItem {
 	}
 
 	public void setItemId(String itemId) {
-		ItemId = itemId;
+		this.itemId = itemId;
 	}
 
 	public void setItemNum(int itemNum) {

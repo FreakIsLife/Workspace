@@ -110,8 +110,69 @@ public class ProductService {
 			if (delId.length == 1) {
 				pd.deleteOneProduct(delId[0]);
 			} else if (delId.length > 1) {
-				Object [][]params = CommonUtil.tranArray(delId);
+				Object[][] params = CommonUtil.tranArray(delId);
 				pd.deleteMutiProduct(params);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 获取商品
+	 * 
+	 * @param pageBean
+	 */
+	public void getProduct(Page pageBean) {
+		try {
+			pageBean.setTotalRow(pd.count());
+			pd.getProduct(pageBean);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 通过Id搜索商品
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	public Product findById(String productId) {
+		try {
+			return pd.findById(productId);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 搜索时返回的商品列表
+	 * 
+	 * @param pageBean
+	 * @param productName
+	 * @return
+	 */
+	public List<Product> searchProduct(Page pageBean, String productName) {
+		try {
+			if (pageBean.getOrdername() == null
+					|| "".equals(pageBean.getOrdername())) {
+				pageBean.setOrdername("productId");
+			}
+			if (productName == null || "".equals(productName)) {
+				/*
+				 * 没有查询条件，返回全部记录
+				 */
+				int totalRow = pd.count();
+				pageBean.setTotalRow(totalRow);
+				return pd.getSearchProduct(pageBean);
+			} else {
+				/*
+				 * 有查询条件，返回符合条件的总记录数
+				 */
+				int totalRow = pd.countByName(productName);
+				pageBean.setTotalRow(totalRow);
+				return pd.findByName(pageBean, productName);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

@@ -125,4 +125,57 @@ public class ProductDaoImpl implements ProductDao {
 		return qr.query(sql, new BeanListHandler<Product>(Product.class),
 				productId);
 	}
+
+	@Override
+	public void getProduct(Page pageBean) throws SQLException {
+		String sql = "select * from product_info limit ?,?";
+		Object[] params = { pageBean.getOffset(), pageBean.getLimit() };
+		pageBean.setBeanList(qr.query(sql, new BeanListHandler<Product>(
+				Product.class), params));
+	}
+
+	@Override
+	public int count() throws SQLException {
+		String sql = "select count(*) from product_info";
+		Number rs = qr.query(sql, new ScalarHandler<Number>());
+		return rs.intValue();
+	}
+
+	@Override
+	public List<Product> getSearchProduct(Page pageBean) throws SQLException {
+		String sql = "select * from product_info order by "
+				+ pageBean.getOrdername() + " " + pageBean.getOrder()
+				+ " limit ?,?";
+		Object[] params = { pageBean.getOffset(), pageBean.getLimit() };
+		return qr.query(sql, new BeanListHandler<Product>(Product.class),
+				params);
+	}
+
+	@Override
+	public int countByName(String productName) throws SQLException {
+		String sql = "select count(*) from product_info where productName like ?";
+		Number rs = qr.query(sql, new ScalarHandler<Number>(), "%"
+				+ productName + "%");
+		return rs.intValue();
+	}
+
+	@Override
+	public List<Product> findByName(Page pageBean, String productName)
+			throws SQLException {
+		String sql = "select * from ( select * from product_info where productName like ?) a order by "
+				+ pageBean.getOrdername()
+				+ " "
+				+ pageBean.getOrder()
+				+ " limit ?,?";
+		Object[] params = { "%" + productName + "%", pageBean.getOffset(),
+				pageBean.getLimit() };
+		return qr.query(sql, new BeanListHandler<Product>(Product.class),
+				params);
+	}
+
+	@Override
+	public void updateSale(Object[][] params) throws SQLException {
+		String sql = "update product_info set productSale = productSale + ? where productId=?";
+		qr.batch(sql, params);
+	}
 }

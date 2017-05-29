@@ -140,4 +140,74 @@ public class productServlet extends BaseServlet {
 				+ productListJson + "}";
 		return json;
 	}
+
+	/**
+	 * 获取搜索的商品
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getSearchProduct(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Page pageBean = CommonUtil
+				.toBean(request.getParameterMap(), Page.class);
+		String productName = request.getParameter("productName");
+		List<Product> productList = ps.searchProduct(pageBean, productName);
+		String productListJson = ps.getProductListJson(productList);
+		// 需要返回的数据有总记录数和行数据
+		String json = "{\"total\":" + pageBean.getTotalRow() + ",\"rows\":"
+				+ productListJson + "}";
+		return json;
+	}
+
+	/**
+	 * 获取商品的List列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getProduct(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Page pageBean = CommonUtil
+				.toBean(request.getParameterMap(), Page.class);
+
+		// 1.默认访问第一页
+		pageBean.setPageNum(1);
+		String _pageNum = request.getParameter("pageNum");
+		if (_pageNum != null) {
+			pageBean.setPageNum(Integer.parseInt(_pageNum));
+		}
+		pageBean.setLimit(12);
+		pageBean.setOffset((pageBean.getPageNum() - 1) * pageBean.getLimit());
+		ps.getProduct(pageBean);
+		request.setAttribute("pageBean", pageBean);
+		request.getRequestDispatcher("/page/bookList.jsp").forward(request,
+				response);
+		return null;
+	}
+
+	/**
+	 * 获取商品的列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String getProductIntro(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String productId = request.getParameter("productId");
+		Product bean = ps.findById(productId);
+		request.setAttribute("product", bean);
+		request.getRequestDispatcher("/page/bookItro.jsp").forward(request,
+				response);
+		return null;
+	}
 }
