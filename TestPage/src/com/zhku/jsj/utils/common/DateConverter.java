@@ -11,19 +11,13 @@ public class DateConverter implements Converter {
 	@Override
 	public Object convert(Class type, Object value) {
 		// 如果要转换成值为null，那么直接返回null
-<<<<<<< HEAD
-		if (value == null|| "".equals(value))
-=======
 		if (value == null || "".equals(value))
->>>>>>> refs/remotes/origin/master
 			return null;
 		// 如果要转换的值不是String，那么就不转换了，直接返回
 		if (!(value instanceof String)) {
 			return value;
 		}
 		String val = (String) value;// 把值转换成String
-		if (val == null || "".equals(val))
-			return null;
 		// 使用SimpleDateFormat进行转换
 		if (val == null || "".equals(val))
 			return null;
