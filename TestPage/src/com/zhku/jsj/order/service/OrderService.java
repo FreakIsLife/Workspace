@@ -146,7 +146,7 @@ public class OrderService {
 	}
 
 	/**
-	 * 
+	 * 删除购物车的相关商品
 	 * @param itemJson
 	 * @param userId
 	 */

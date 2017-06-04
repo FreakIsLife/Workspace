@@ -36,8 +36,6 @@ public class ShopDaoImpl implements ShopDao {
 		sql += ")";
 		return qr.query(sql, new BeanListHandler<Shop>(Shop.class), shopId);
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public Shop findOneById(String shopId) throws SQLException {
@@ -53,5 +51,4 @@ public class ShopDaoImpl implements ShopDao {
 		qr.update(sql, params);
 	}
 
->>>>>>> refs/remotes/origin/master
 }

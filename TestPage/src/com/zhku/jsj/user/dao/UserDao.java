@@ -42,17 +42,13 @@ public interface UserDao {
 
 	/**
 	 * 设置用户状态是开店
-<<<<<<< HEAD
 	 * 
-=======
 	 * @param userId
->>>>>>> refs/remotes/origin/master
 	 * @throws SQLException
 	 */
 	void setShop(String userId) throws SQLException;
 
 	/**
-<<<<<<< HEAD
 	 * 加载用户信息
 	 * 
 	 * @return
@@ -62,17 +58,19 @@ public interface UserDao {
 
 	/**
 	 * 删除用户信息
+	 * 
 	 * @param userId
 	 * @throws SQLException
 	 */
 	void deleteUser(String userId) throws SQLException;
-=======
+
+	/**
 	 * 更新账号的密码
+	 * 
 	 * @param userId
 	 * @param newPassword
 	 * @throws SQLException
 	 */
 	void updatePassword(String userId, String password) throws SQLException;
->>>>>>> refs/remotes/origin/master
 
 }
